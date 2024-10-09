@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ImageBackground, Animated, TextInput, Dimensions } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet, ImageBackground, Animated, TextInput, Dimensions, Image } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
 import AboutModal from './AboutModal';
 import Icons from './Icons';
@@ -11,7 +13,20 @@ const Home = () => {
     const [aboutModalVisible, setAboutModalVisible] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [animation] = useState(new Animated.Value(0));
+    const [selectedImage, setSelectedImage] = useState(null); 
     const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (expanded) {
+            AsyncStorage.getItem('userProfile').then((data) => {
+                if (data) {
+                    const { storedImage, storedName } = JSON.parse(data);
+                    setSelectedImage(storedImage);
+                    setName(storedName);
+                }
+            });
+        }
+    }, [expanded]);
 
 
     const handleAboutModalClose = () => {
@@ -31,6 +46,37 @@ const Home = () => {
         inputRange: [0, 1],
         outputRange: [50, height * 0.6],
     });
+
+    const handleImageUpload = () => {
+        const options = {
+            mediaType: 'photo',
+            includeBase64: false,
+        };
+
+        launchImageLibrary(options, (response) => {
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.assets) {
+                setSelectedImage(response.assets[0].uri);
+            }
+        });
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const data = {
+                storedImage: selectedImage,
+                storedName: name,
+            };
+            await AsyncStorage.setItem('userProfile', JSON.stringify(data));
+            console.log('Data stored successfully!');
+            handleAccountButtonPress();
+        } catch (error) {
+            console.error('Failed to store data', error);
+        }
+    };
 
     return (
         <ImageBackground
@@ -57,6 +103,15 @@ const Home = () => {
             <View style={[styles.accountBtn, expanded && styles.accountBtnExpanded]}>
             {expanded && (
                         <Animated.View style={[styles.expandedContainer, { height: heightInterpolation }]}>
+                            {selectedImage ? (
+                                        <Image source={{ uri: selectedImage }} style={styles.imagePlaceholder} />
+                                    ) : (
+                                        <View style={styles.imagePlaceholder} />
+                                    )}
+                                    
+                                    <TouchableOpacity style={styles.uploadButton} onPress={handleImageUpload}>
+                                        <Text style={styles.uploadText}>Upload Image</Text>
+                                    </TouchableOpacity>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Enter your name"
@@ -64,7 +119,7 @@ const Home = () => {
                                 value={name}
                                 onChangeText={setName}
                             />
-                            <TouchableOpacity style={styles.submitButton}>
+                            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
                                 <Text style={styles.submitText}>Submit</Text>
                             </TouchableOpacity>
                         </Animated.View>
@@ -167,8 +222,9 @@ const styles = StyleSheet.create({
     expandedContainer: {
         width: '100%',
         padding: 15,
+        paddingVertical: 40,
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         position: 'relative',
         top: 0
     },
@@ -180,7 +236,7 @@ const styles = StyleSheet.create({
         color: '#e4cd88',
         borderRadius: 8,
         padding: 10,
-        marginBottom: 30,
+        marginBottom: 50,
     },
 
     submitButton: {
@@ -194,7 +250,31 @@ const styles = StyleSheet.create({
     submitText: {
         color: ('rgb(39, 116, 241)'),
         fontWeight: '600',
-    }
+    },
+
+    imagePlaceholder: {
+        width: 160,
+        height: 160,
+        backgroundColor: '#e4cd88',
+        borderRadius: 100,
+        marginBottom: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    uploadButton: {
+        backgroundColor: '#e4cd88',
+        padding: 10,
+        borderRadius: 8,
+        alignItems: 'center',
+        width: '100%',
+        marginBottom: 40,
+    },
+
+    uploadText: {
+        color: 'rgb(39, 116, 241)',
+        fontWeight: '600',
+    },
 });
 
 export default Home;
