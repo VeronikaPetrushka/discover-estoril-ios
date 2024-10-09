@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, View, ScrollView, Text, TouchableOpacity, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useAvailability } from '../constants/collectionContext.js';
-import collection from '../constants/collection';
+import { useAvailability } from '../constants/context/collection.js';
+import collection from '../constants/collection.js';
 import Icons from './Icons';
 
 const Collection = () => {

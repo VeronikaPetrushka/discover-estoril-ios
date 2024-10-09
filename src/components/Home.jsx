@@ -23,10 +23,14 @@ const Home = () => {
                     const { storedImage, storedName } = JSON.parse(data);
                     setSelectedImage(storedImage);
                     setName(storedName);
+                } else {
+                    setSelectedImage(null);
+                    setName('');
                 }
             });
         }
     }, [expanded]);
+    
 
 
     const handleAboutModalClose = () => {
