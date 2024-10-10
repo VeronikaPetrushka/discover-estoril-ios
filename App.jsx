@@ -9,6 +9,7 @@ import CollectionScreen from './src/screens/CollectionScreen.jsx';
 import SettingsScreen from './src/screens/SettingsScreen.jsx';
 import MuseumScreen from './src/screens/MuseumScreen.jsx';
 import MuseumFactsScreen from './src/screens/MuseumFactsScreen.jsx'
+import LeadersBoardScreen from './src/screens/LeadersBoardScreen.jsx';
 
 import { CollectionProvider } from './src/constants/context/collection.js';
 import { MusicProvider } from './src/constants/context/music.js';
@@ -52,6 +53,11 @@ const App = () => {
                         <Stack.Screen 
                             name="MuseumFactsScreen" 
                             component={MuseumFactsScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="LeadersBoardScreen" 
+                            component={LeadersBoardScreen} 
                             options={{ headerShown: false }} 
                         />
                     </Stack.Navigator>

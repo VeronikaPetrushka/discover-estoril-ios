@@ -61,8 +61,8 @@ const MenuPanel = () => {
 
             <View style={styles.btnContainer}>
                 <TouchableOpacity 
-                    style={[styles.button, activeButton === 'RecipesScreen' && styles.activeButton]} 
-                    onPress={() => handleNavigate('RecipesScreen')}>
+                    style={[styles.button, activeButton === 'LeadersBoardScreen' && styles.activeButton]} 
+                    onPress={() => handleNavigate('LeadersBoardScreen')}>
                     <Icons type={'leaderboard'} />
                 </TouchableOpacity>
                 <Text style={styles.btnTxt}>Leaders</Text>
