@@ -1,5 +1,5 @@
-import React from 'react';
-import { Image, StyleSheet, View, ScrollView, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Image, StyleSheet, View, ScrollView, Text, TouchableOpacity, ImageBackground, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAvailability } from '../constants/context/collection.js';
 import collection from '../constants/collection.js';
@@ -8,6 +8,27 @@ import Icons from './Icons';
 const Collection = () => {
     const navigation = useNavigation();
     const { available, setAvailable } = useAvailability();
+    const [modalVisible, setModalVisible] = useState(false);
+    const [bonusMark, setBonusMark] = useState(null);
+
+    useEffect(() => {
+        const availableCount = available.filter(mark => mark).length;
+        if (availableCount === 5 && !available[5]) {
+            unlockBonusMark();
+        }
+    }, [available]);
+
+    const unlockBonusMark = () => {
+        const newAvailable = [...available];
+        newAvailable[5] = true;
+        setAvailable(newAvailable);
+        setBonusMark(collection[5].mark);
+        setModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalVisible(false);
+    };
 
     return (
         <ImageBackground
@@ -39,6 +60,24 @@ const Collection = () => {
             <View style={{height: 100}}></View>
             </ScrollView>
         </View>
+        <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={handleCloseModal}
+            >
+                <View style={styles.modalContainer}>
+                <View style={styles.modalView}>
+                    <Text style={styles.modalTitle}>Congratulations!</Text>
+                    <Text style={styles.modalText}>You have unlocked 5 marks!</Text>
+                    <Text style={styles.modalText}>Here is your bonus mark:</Text>
+                    {bonusMark && <Image source={bonusMark} style={styles.bonusMark} />}
+                    <TouchableOpacity style={styles.modalButton} onPress={handleCloseModal}>
+                        <Icons type={'close'}/>
+                    </TouchableOpacity>
+                </View>
+                </View>
+            </Modal>
         </View>
         </ImageBackground>
     )
@@ -79,12 +118,10 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: 250,
-        resizeMode: 'cover',
+        resizeMode: 'contain',
     },
     locked: {
         ...StyleSheet.absoluteFillObject,
-        // width: '100%',
-        // height: 250,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'rgba(160, 233, 249, 0.95)',
@@ -105,6 +142,57 @@ const styles = StyleSheet.create({
         top: 50,
         left: 20,
         zIndex: 10
+    },
+    modalView: {
+        position: 'absolute',
+        top: '27%',
+        left: 19,
+        width: '90%',
+        height: '40%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 15,
+        color: '#6b603e'
+    },
+    modalText: {
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#6b603e',
+        fontSize: 18
+    },
+    bonusMark: {
+        width: 250,
+        height: 190,
+        resizeMode: 'contain',
+        marginBottom: 15,
+    },
+    modalButton: {
+        padding: 10,
+        width: 42,
+        height: 42,
+        position: 'absolute',
+        top: 10,
+        right: 10,
     }
 });
 

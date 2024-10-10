@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen.jsx';
 import CollectionScreen from './src/screens/CollectionScreen.jsx';
 import SettingsScreen from './src/screens/SettingsScreen.jsx';
+import MuseumScreen from './src/screens/MuseumScreen.jsx';
+import MuseumFactsScreen from './src/screens/MuseumFactsScreen.jsx'
 
 import { CollectionProvider } from './src/constants/context/collection.js';
 import { MusicProvider } from './src/constants/context/music.js';
@@ -40,6 +42,16 @@ const App = () => {
                         <Stack.Screen 
                             name="SettingsScreen" 
                             component={SettingsScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="MuseumScreen" 
+                            component={MuseumScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="MuseumFactsScreen" 
+                            component={MuseumFactsScreen} 
                             options={{ headerShown: false }} 
                         />
                     </Stack.Navigator>
