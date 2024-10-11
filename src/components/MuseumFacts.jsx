@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, Image, Button, StyleSheet, ScrollView, ImageBackground, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, ImageBackground, Dimensions, TouchableOpacity, Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useAvailability } from '../constants/context/collection.js';
 import collection from '../constants/collection.js';
+import Icons from './Icons.jsx';
 
 const { height, width } = Dimensions.get('window');
 
@@ -12,25 +13,52 @@ const MuseumFacts = ({ museum, description, famous, factName, fact, facts, image
     const { available, setAvailable } = useAvailability(); 
 
     const [pageIndex, setPageIndex] = useState(0);
+    const [walkingIcon, setWalkingIcon] = useState('walking-1');
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    const walkPosition = useRef(new Animated.Value(0)).current;
 
     const totalPages = 6;
 
-    const handleNextPage = () => {
-        if (pageIndex < totalPages - 1) {
-            setPageIndex(pageIndex + 1);
-            if (pageIndex === 4) {
-                const markIndex = collection.findIndex(item => item.mark === reward.mark);
-                const newAvailable = [...available];
-                if (markIndex !== -1) {
-                    newAvailable[markIndex] = true;
-                    setAvailable(newAvailable);
+    const handlePageChange = (direction) => {
+        if (isAnimating) return;
+
+        setIsAnimating(true);
+        let animationFrame = 0;
+
+        const endPosition = direction === 'next' ? width * 0.56 : -width * 0.1;
+
+        const iconInterval = setInterval(() => {
+            setWalkingIcon(prevIcon => (prevIcon === 'walking-1' ? 'walking-2' : 'walking-1'));
+            animationFrame++;
+
+            if (animationFrame >= 4) {
+                clearInterval(iconInterval);
+                setIsAnimating(false);
+
+                if (direction === 'next' && pageIndex < totalPages - 1) {
+                    setPageIndex(pageIndex + 1);
+                    if (pageIndex === 4) {
+                        const markIndex = collection.findIndex(item => item.mark === reward.mark);
+                        const newAvailable = [...available];
+                        if (markIndex !== -1) {
+                            newAvailable[markIndex] = true;
+                            setAvailable(newAvailable);
+                        }
+                    }
+                } else if (direction === 'prev' && pageIndex > 0) {
+                    setPageIndex(pageIndex - 1);
                 }
             }
-        }
-    };
+        }, 150);
 
-    const handlePrevPage = () => {
-        if (pageIndex > 0) setPageIndex(pageIndex - 1);
+        Animated.timing(walkPosition, {
+            toValue: endPosition,
+            duration: 1000,
+            useNativeDriver: false,
+        }).start(() => {
+            walkPosition.setValue(0);
+        });
     };
 
     return (
@@ -97,7 +125,7 @@ const MuseumFacts = ({ museum, description, famous, factName, fact, facts, image
                         <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('CollectionScreen')}>
                             <Text style={styles.btnText}>View Collection</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('MuseumScreen')}>
                             <Text style={styles.btnText}>Continue Exploring</Text>
                         </TouchableOpacity>
                     </View>
@@ -107,8 +135,25 @@ const MuseumFacts = ({ museum, description, famous, factName, fact, facts, image
 
             </View>
             <View style={styles.buttonContainer}>
-                <Button title="Previous" onPress={handlePrevPage} disabled={pageIndex === 0} />
-                <Button title="Next" onPress={handleNextPage} disabled={pageIndex === totalPages - 1} />
+                <TouchableOpacity 
+                            style={styles.doorIcon} 
+                            onPress={() => handlePageChange('prev')}
+                            disabled={pageIndex === 0 || isAnimating}
+                        >
+                            <Icons type="door" />
+                        </TouchableOpacity>
+                        <View style={{width: '70%'}}>
+                        <Animated.View style={[styles.walkingIcon, { left: walkPosition }]}>
+                            <Icons type={walkingIcon} />
+                        </Animated.View>
+                        </View>
+                        <TouchableOpacity 
+                            style={styles.doorIcon} 
+                            onPress={() => handlePageChange('next')}
+                            disabled={pageIndex === totalPages - 1 || isAnimating}
+                        >
+                            <Icons type="door" />
+                        </TouchableOpacity>
             </View>
         </View>
         </View>
@@ -134,14 +179,13 @@ const styles = StyleSheet.create({
         justifyContent: 'start',
         alignItems: 'center',
         padding: 20,
-        paddingTop: height * 0.09
+        paddingTop: height * 0.07
     },
     title: {
         fontSize: 34,
         fontWeight: 'bold',
         color: '#e2d6b1',
-        marginBottom: 30,
-        width: 400
+        marginBottom: 20,
     },
     page: {
         width: width * 0.9,
@@ -204,7 +248,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '80%',
+        width: '100%',
         marginTop: 10
     },
     btnContainer: {
@@ -226,6 +270,14 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'white',
         fontWeight: '500',
+    },
+    doorIcon: {
+        width: 60,
+        height: 60
+    },
+    walkingIcon: {
+        width: 60,
+        height: 60
     }
 });
 

@@ -42,6 +42,17 @@ const Icons = ({ type }) => {
       imageSource = require('../assets/common/arrow.png');
       iconStyle = styles.backIcon;
       break;
+    case 'door':
+      imageSource = require('../assets/museum/door.png');
+      break;
+    case 'walking-1':
+      imageSource = require('../assets/museum/walking-1.png');
+      iconStyle = styles.backIcon;
+      break;
+    case 'walking-2':
+      imageSource = require('../assets/museum/walking-2.png');
+      iconStyle = styles.backIcon;
+      break;
   }
 
   return (
