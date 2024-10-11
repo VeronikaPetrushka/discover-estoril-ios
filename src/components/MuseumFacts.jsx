@@ -179,17 +179,18 @@ const styles = StyleSheet.create({
         justifyContent: 'start',
         alignItems: 'center',
         padding: 20,
-        paddingTop: height * 0.07
+        paddingTop: height * 0.06
     },
     title: {
-        fontSize: 34,
+        fontSize: height * 0.04,
         fontWeight: 'bold',
         color: '#e2d6b1',
         marginBottom: 20,
+        textAlign: 'center'
     },
     page: {
         width: width * 0.9,
-        height: height * 0.6,
+        height: height * 0.55,
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 15,
@@ -209,7 +210,7 @@ const styles = StyleSheet.create({
     imgContainer: {
         width: width * 0.82,
         height: height * 0.23,
-        marginBottom: 10,
+        marginBottom: height * 0.01,
         borderRadius: 10,
         overflow: 'hidden',
         justifyContent: 'center',
@@ -249,7 +250,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        marginTop: 10
+        position: 'absolute',
+        bottom: height * 0.17
     },
     btnContainer: {
         width: '100%',
@@ -272,12 +274,12 @@ const styles = StyleSheet.create({
         fontWeight: '500',
     },
     doorIcon: {
-        width: 60,
-        height: 60
+        width: width * 0.08,
+        height: height * 0.08
     },
     walkingIcon: {
-        width: 60,
-        height: 60
+        width: width * 0.07,
+        height: height * 0.07
     }
 });
 
