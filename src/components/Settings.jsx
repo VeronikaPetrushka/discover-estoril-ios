@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Share, Alert, Vibration, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMusic } from '../constants/context/music.js';
-import Icons from './Icons';
 
 const Settings = () => {
     const { isPlaying, togglePlay } = useMusic();

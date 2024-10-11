@@ -52,8 +52,8 @@ const MenuPanel = () => {
 
             <View style={styles.btnContainer}>
                 <TouchableOpacity 
-                    style={[styles.button, activeButton === 'CalendarScreen' && styles.activeButton]} 
-                    onPress={() => handleNavigate('CalendarScreen')}>
+                    style={[styles.button, activeButton === 'QuizModeScreen' && styles.activeButton]} 
+                    onPress={() => handleNavigate('QuizModeScreen')}>
                     <Icons type={'quiz'} />
                 </TouchableOpacity>
                 <Text style={styles.btnTxt}>Quiz</Text>

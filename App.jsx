@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Animated, View, ImageBackground, StyleSheet, Text, Dimensions } from 'react-native';
-// import * as Progress from 'react-native-progress';
+import React from 'react';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,6 +8,11 @@ import SettingsScreen from './src/screens/SettingsScreen.jsx';
 import MuseumScreen from './src/screens/MuseumScreen.jsx';
 import MuseumFactsScreen from './src/screens/MuseumFactsScreen.jsx'
 import LeadersBoardScreen from './src/screens/LeadersBoardScreen.jsx';
+import QuizModeScreen from './src/screens/QuizModeScreen.jsx';
+import TopicsExpertScreen from './src/screens/TopicsExpertScreen.jsx';
+import TopicsNewcomerScreen from './src/screens/TopicsNewcomerScreen.jsx';
+import QuizExpertScreen from './src/screens/QuizExpertScreen.jsx';
+import QuizNewcomerScreen from './src/screens/QuizNewcomerScreen.jsx';
 
 import { CollectionProvider } from './src/constants/context/collection.js';
 import { MusicProvider } from './src/constants/context/music.js';
@@ -18,9 +21,6 @@ import MusicPlayer from './src/components/MusicPlayer.jsx';
 enableScreens();
 
 const Stack = createStackNavigator();
-
-const { height, width } = Dimensions.get('window');
-
 
 const App = () => {
   
@@ -60,53 +60,36 @@ const App = () => {
                             component={LeadersBoardScreen} 
                             options={{ headerShown: false }} 
                         />
+                        <Stack.Screen 
+                            name="QuizModeScreen" 
+                            component={QuizModeScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="TopicsExpertScreen" 
+                            component={TopicsExpertScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="TopicsNewcomerScreen" 
+                            component={TopicsNewcomerScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="QuizExpertScreen" 
+                            component={QuizExpertScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="QuizNewcomerScreen" 
+                            component={QuizNewcomerScreen} 
+                            options={{ headerShown: false }} 
+                        />
                     </Stack.Navigator>
         </NavigationContainer>
       </CollectionProvider>
       </MusicProvider>
     );
 };
-
-const styles = StyleSheet.create({
-    imageContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-    },
-    overlay: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.2)',
-      zIndex: 1,
-  },
-    textContainer: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        bottom: height * 0.35,
-        left: 0,
-        right: 0,
-        zIndex: 2
-    },
-    congratText: {
-        fontSize: width * 0.2,
-        fontWeight: 'bold',
-        color: '#d2f0bc',
-        textAlign: 'center',
-        marginBottom: 10,
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default App;
