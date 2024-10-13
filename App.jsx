@@ -3,6 +3,7 @@ import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen.jsx';
+import SavedScreen from './src/screens/SavedScreen.jsx'
 import CollectionScreen from './src/screens/CollectionScreen.jsx';
 import SettingsScreen from './src/screens/SettingsScreen.jsx';
 import MuseumScreen from './src/screens/MuseumScreen.jsx';
@@ -33,6 +34,11 @@ const App = () => {
                         <Stack.Screen 
                             name="HomeScreen" 
                             component={HomeScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="SavedScreen" 
+                            component={SavedScreen} 
                             options={{ headerShown: false }} 
                         />
                         <Stack.Screen 

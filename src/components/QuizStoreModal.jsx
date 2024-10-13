@@ -1,3 +1,4 @@
+// 100% case hint to add
 import React, {useState, useEffect} from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';

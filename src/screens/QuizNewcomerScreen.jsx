@@ -2,11 +2,17 @@ import { View } from "react-native"
 import QuizNewcomer from "../components/QuizNewcomer"
 
 const QuizNewcomerScreen = ({route}) => {
-    const {topic, level, questions} = route.params;
+    const {topic, level, questions, storyName, story} = route.params;
 
     return (
         <View style={styles.container}>
-            <QuizNewcomer topic={topic} level={level} questions={questions}/>
+            <QuizNewcomer 
+                topic={topic} 
+                level={level} 
+                questions={questions}
+                storyName={storyName}
+                story={story}
+                />
         </View>
     )
 }; 

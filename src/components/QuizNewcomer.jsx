@@ -3,9 +3,10 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import StoreModal from './QuizStoreModal';
+import StoryModal from './StoryModal';
 import Icons from './Icons';
 
-const QuizNewcomer = ({ topic, level, questions }) => {
+const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
     const navigation = useNavigation();
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [score, setScore] = useState(0);
@@ -20,6 +21,7 @@ const QuizNewcomer = ({ topic, level, questions }) => {
     const [hintUsed, setHintUsed] = useState(false);
     const [availableHints, setAvailableHints] = useState(3);
     const [totalHints, setTotalHints] = useState(0);
+    const [storyModalVisible, setStoryModalVisible] = useState(false);
     const placeholderRef = useRef(null);
 
     useEffect(() => {
@@ -87,6 +89,10 @@ const QuizNewcomer = ({ topic, level, questions }) => {
         setStoreModalVisible(false);
     };
 
+    const handleStoryModalClose = () => {
+        setStoryModalVisible(false);
+    };
+
     const handleUseHint = () => {
         if (!hintUsed && availableHints > 0) {
             const currentQuestion = questions[currentQuestionIndex];
@@ -130,12 +136,26 @@ const QuizNewcomer = ({ topic, level, questions }) => {
                 <Text style={styles.finalText}>Quiz Finished!</Text>
                 <Text style={styles.finalText}>Your Score: {score}/{questions.length}</Text>
                 <Text style={styles.finalText}>Total Score: {totalScore}</Text>
+                <Text>You have successfully completed the level {level} of the quiz!
+                    Your knowledge of this charming area is just beginning to unfold!
+                    Keep exploring and discovering new interesting facts about Estoril!
+                </Text>
+                <TouchableOpacity style={styles.tryAgainButton} onPress={() => setStoryModalVisible(true)}>
+                    <Text style={styles.tryAgainText}>Read the story</Text>
+                </TouchableOpacity>
                 <TouchableOpacity style={styles.tryAgainButton} onPress={handleTryAgain}>
                     <Text style={styles.tryAgainText}>Try Again</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.goBack()}>
                     <Text style={styles.goBackText}>Go Back</Text>
                 </TouchableOpacity>
+
+                <StoryModal 
+                visible={storyModalVisible}
+                onClose={handleStoryModalClose}
+                storyName={storyName}
+                story={story}
+                />
             </View>
         );
     }

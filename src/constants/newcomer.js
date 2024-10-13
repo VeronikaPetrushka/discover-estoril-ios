@@ -54,7 +54,9 @@ const newcomer = [
                 correctAnswer: "2003"
             }
         
-        ]
+        ],
+        storyName: 'The Enchanted Beach',
+        story: 'Estoril’s beaches are not only known for their golden sands and crystal-clear waters but also for their enchanting folklore. Locals believe that during full moon nights, the sands emit a soft, magical glow that reveals hidden treasures buried beneath. People come from far and wide to walk along the shoreline, hoping to discover rare shells, sparkling sea glass, or even coins left behind by past wanderers. The captivating atmosphere is enhanced by the gentle sound of the waves, making it a perfect spot for those seeking a little magic in their lives.'
     },
     {
         topic: 'Cultural Heritage of Estoril',
@@ -110,7 +112,9 @@ const newcomer = [
                 options: ["Amália Rodrigues", "Paula Rego", "Almada Negreiros", "José Rodrigues"],
                 correctAnswer: "Amália Rodrigues"
             }
-        ]
+        ],
+        storyName: 'The Legend of the Lost Treasure',
+        story: 'In the shadowy hills surrounding Estoril, there lies a story of a notorious pirate who once roamed the seas. Legend has it that he hid a vast treasure in a secret cave, believed to be filled with gold coins, jewels, and artifacts from distant lands. Many adventurous treasure hunters have ventured into the hills, armed with maps and metal detectors, only to return empty-handed. Locals whisper about strange lights flickering in the cave at night, and some claim to have heard the ghostly laughter of the pirate echoing through the hills, warning them to stay away from his hidden fortune.'
     },
     {
         topic: 'Estoril in Art and Literature',
@@ -166,7 +170,9 @@ const newcomer = [
                 options: ["Sculpture", "Painting", "Digital art", "Street art"],
                 correctAnswer: "Painting"
             }
-        ]
+        ],
+        storyName: 'The Whispering Statues',
+        story: 'In the serene gardens of Estoril, several ancient statues stand as silent guardians of the town’s rich history. It is said that these statues have the ability to whisper secrets to those who approach them with a kind heart. Locals believe that if you listen closely while sitting beside one of the statues, you might hear words of wisdom about love, life, and the importance of community. Many residents visit the garden seeking guidance during difficult times, believing the statues hold the answers to their questions.'
     },
     {
         topic: 'Impact of War on Estoril',
@@ -222,7 +228,9 @@ const newcomer = [
                 options: ["Loss of heritage", "Cultural diversity", "Economic stagnation", "Isolation"],
                 correctAnswer: "Cultural diversity"
             }
-        ]
+        ],
+        storyName: 'The Ghost of the Old Hotel',
+        story: 'An old, beautifully preserved hotel in Estoril is shrouded in mystery and is rumored to be haunted by the ghost of a woman who once graced its halls. Guests have reported hearing soft piano music drifting from the empty ballroom and occasionally glimpsing a figure in white, dancing gracefully alone under the dim lights. It is believed that she is searching for her lost love, a sailor who never returned from a perilous journey at sea. Those who spend the night in the hotel often share stories of feeling a cold breeze or sensing an unexplainable presence, adding to the hotel’s intriguing allure.'
     },
     {
         topic: 'Local Cuisine',
@@ -278,7 +286,9 @@ const newcomer = [
                 options: ["Cod", "Tuna", "Halibut", "Mackerel"],
                 correctAnswer: "Cod"
             }
-        ]
+        ],
+        storyName: 'The Festival of Lights',
+        story: 'Each winter, Estoril transforms into a stunning winter wonderland during the annual Festival of Lights. This beloved tradition, believed to have originated to guide lost souls home, brings families together as they adorn their homes and streets with twinkling lights. The highlight of the festival is the breathtaking lantern ceremony held on the beach, where hundreds of lanterns are released into the sky, each carrying a wish from the participants. The sight of the glowing lanterns floating away creates an unforgettable atmosphere, fostering hope and unity among the townspeople.'
     },
     {
         topic: 'Architecture of Estoril',
@@ -334,7 +344,9 @@ const newcomer = [
                 options: ["Skyscrapers", "Villas", "Bungalows", "Apartments"],
                 correctAnswer: "Villas"
             }
-        ]
+        ],
+        storyName: 'The Secret Garden of Herbalists',
+        story: 'Tucked away in the lush hills surrounding Estoril lies a secret garden that was once tended by skilled herbalists. According to local legend, this garden is home to rare plants and herbs known for their healing properties. Residents believe that if you visit the garden with a pure intention and pick a flower while making a wish, the flower will bloom beautifully, symbolizing that your wish will be granted. Many locals embark on quiet pilgrimages to the garden, seeking both healing and inspiration in the tranquil setting surrounded by nature’s beauty.'
     },
     {
         topic: 'Notable Personalities of Estoril',
@@ -390,7 +402,9 @@ const newcomer = [
                 options: ["Political influence", "Artistic heritage", "Economic development", "Scientific achievements"],
                 correctAnswer: "Artistic heritage"
             }
-        ]
+        ],
+        storyName: 'The Mysterious Cave Paintings',
+        story: 'Just outside Estoril, ancient cave paintings tell the story of the region’s early inhabitants. These intricate designs depict scenes of daily life, hunting, and rituals, leaving historians and archaeologists fascinated. Locals share tales of how, if you gaze at the paintings long enough, you might witness the stories unfolding before your eyes, transporting you back in time. Families often visit the site on weekends, allowing children to marvel at the art and learn about their cultural heritage, thus keeping the history of Estoril alive.'
     },
     {
         topic: 'Maritime Heritage of Estoril',
@@ -446,7 +460,9 @@ const newcomer = [
                 options: ["Cliffs", "Mountains", "Desserts", "Swamps"],
                 correctAnswer: "Cliffs"
             }
-        ]
+        ],
+        storyName: 'The Gathering of the Stars',
+        story: 'Every summer, the town hosts an enchanting event known as the Gathering of the Stars, where locals and visitors gather on the beach to marvel at the night sky. As the sun sets and the stars begin to twinkle, participants are encouraged to make wishes upon shooting stars, believing that their dreams will come true. The event is filled with laughter, storytelling, and the sharing of folklore about the stars guiding the townspeople through history. It fosters a sense of community and wonder, uniting everyone under the celestial tapestry.'
     },
     {
         topic: 'Local Crafts and Traditions',
@@ -502,7 +518,9 @@ const newcomer = [
                 options: ["Economic growth", "Cultural identity", "Globalization", "Modernization"],
                 correctAnswer: "Cultural identity"
             }
-        ]
+        ],
+        storyName: 'The Time Capsule of Estoril',
+        story: 'During a lively town festival, the residents of Estoril came together to create a time capsule filled with letters, photographs, and artifacts representing their lives. This time capsule, buried deep in the town square, is said to be opened in 100 years, allowing future generations a glimpse into the past. The townspeople poured their hopes, dreams, and advice into their letters, encouraging future citizens to honor their roots while forging their paths. The idea of the time capsule has sparked interest among the youth, inspiring them to document their lives for the future.'
     },
     {
         topic: 'Estoril`s Natural Environment',
@@ -558,7 +576,9 @@ const newcomer = [
                 options: ["Historical sites", "Natural beauty", "Urban attractions", "Cultural events"],
                 correctAnswer: "Natural beauty"
             }
-        ]
+        ],
+        storyName: 'The Art of Sea Glass',
+        story: 'The stunning beaches of Estoril are renowned for their abundant sea glass, remnants of old shipwrecks and long-forgotten bottles. Artists flock to the shoreline, collecting these colorful shards to craft exquisite jewelry, artwork, and home decor. Each piece of sea glass carries a unique story, making it a cherished keepsake. Locals believe that wearing sea glass brings good fortune and protection, while also connecting them to the ocean’s history. Artisans often hold workshops to teach others the art of transforming sea glass into beautiful creations, keeping the tradition alive.'
     }
 ];
 

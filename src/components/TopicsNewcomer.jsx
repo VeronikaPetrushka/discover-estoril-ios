@@ -12,7 +12,9 @@ const TopicsNewcomer = () => {
         navigation.navigate('QuizNewcomerScreen', { 
             topic: item.topic,
             level: item.level,
-            questions: item.questions
+            questions: item.questions,
+            storyName: item.storyName,
+            story: item.story
         });
     };
 
