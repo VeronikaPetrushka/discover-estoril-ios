@@ -53,6 +53,30 @@ const Icons = ({ type }) => {
       imageSource = require('../assets/museum/walking-2.png');
       iconStyle = styles.backIcon;
       break;
+    case 'life-gone':
+      imageSource = require('../assets/quiz/life.png');
+      iconStyle = styles.lifeIcon;
+      break;
+    case 'life':
+      imageSource = require('../assets/quiz/life.png');
+      break;
+    case 'hint':
+      imageSource = require('../assets/quiz/hint.png');
+      break;
+    case 'coin':
+      imageSource = require('../assets/quiz/coin.png');
+      break;
+    case 'plus':
+      imageSource = require('../assets/quiz/plus.png');
+      iconStyle = styles.backIcon;
+      break;
+    case 'minus':
+      imageSource = require('../assets/quiz/minus.png');
+      iconStyle = styles.backIcon;
+      break;
+    case 'store':
+      imageSource = require('../assets/quiz/store.png');
+      break;
   }
 
   return (
@@ -80,6 +104,12 @@ const styles = StyleSheet.create({
     height: '100%',
     objectFit: 'cover',
     tintColor: '#e4cd88',
+  },
+  lifeIcon: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    tintColor: 'grey',
   }
 });
 
