@@ -102,13 +102,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        marginBottom: 20,
-        marginTop: -50,
+        marginBottom: 30,
+        marginTop: -40,
         color: '#e2d6b1',
         fontWeight: '700'
     },
     goBackButton: {
-        marginTop: 20
+        marginTop: 30
     },
     goBackButtonText: {
         fontSize: 18,

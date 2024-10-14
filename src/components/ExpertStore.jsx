@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderRadius: 15,
-        backgroundColor: '#503c00',
+        backgroundColor: '#6b603e',
         marginBottom: 30,
     },
     statsMiniText: {
@@ -329,9 +329,9 @@ const styles = StyleSheet.create({
     regulatorTxt: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: '#503c00',
+        color: '#6b603e',
         marginHorizontal: 2,
-        // width: width * 0.1,
+        width: width * 0.1,
         textAlign: 'center'
     },
     btnContainer: {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ExpertStore from './ExpertStore';
@@ -24,23 +24,20 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
     const [totalHints, setTotalHints] = useState(0);
 
     useEffect(() => {
-        const loadTotalScore = async () => {
+        const loadScores = async () => {
             const storedScore = await AsyncStorage.getItem('totalScore');
             if (storedScore) {
                 setTotalScore(parseInt(storedScore, 10));
             }
-            const loadTotalHints = async () => {
-                const storedHints = await AsyncStorage.getItem('totalHints');
-                if (storedHints) {
-                    setTotalHints(parseInt(storedHints, 10));
-                    setAvailableHints(3);
-                }
-            };
-    
-            loadTotalScore();
-            loadTotalHints();
+            const storedHints = await AsyncStorage.getItem('totalHints');
+            if (storedHints) {
+                setTotalHints(parseInt(storedHints, 10));
+                setAvailableHints(3);
+            }
         };
-    }, []);
+    
+        loadScores();
+    }, []);    
 
     useEffect(() => {
         if (years && years.length) {
@@ -71,14 +68,13 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                 });
                 setScore(score + 10);
             } else {
-                setLives((prevLives) => {
-                    if (prevLives > 0) {
-                        return prevLives - 1;
-                    } else {
-                        finishQuiz();
-                        return prevLives;
-                    }
-                });
+                setLives(lives - 1);
+                if (lives - 1 === 0) {
+                    setTimeout(() => {
+                        finishQuiz(score);
+                    }, 1000);
+                    return;
+                }
 
                 setTimeout(() => {
                     const resetYears = updatedPlacedYears.map((yr, idx) => (yr === selectedYear ? null : yr));
@@ -149,7 +145,10 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
         } catch (error) {
             console.error("Error storing quiz results:", error);
         }
-        setQuizFinished(true);
+        
+        setTimeout(() => {
+            setQuizFinished(true);
+        }, 1000);
     };
 
     const handleTryAgain = () => {
@@ -165,15 +164,26 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
 
     if (quizFinished) {
         return (
+            <ImageBackground
+        source={require('../assets/background/home1.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
             <View style={styles.container}>
-                <Text style={styles.finalText}>Quiz Finished!</Text>
-                <Text style={styles.finalText}>Your Score: {score}</Text>
-                <Text style={styles.finalText}>Total Score: {totalScore}</Text>
-                <Text>You have successfully completed the level {level} of the quiz!
+                <Text style={styles.finishTitle}>Quiz Finished!</Text>
+                <View style={styles.finishScoreContainer}>
+                    <View style={styles.scoreIcon}>
+                        <Icons type={'coin'}/>
+                    </View>
+                    <Text style={styles.finishScore}>{totalScore}</Text>
+                </View>
+                <Text style={styles.finalScore}>Here is your final score: {score} !</Text>
+                <Text style={styles.finishText}>You have successfully completed the level {level} of the quiz!
                     Your knowledge of this charming area is just beginning to unfold!
                     Keep exploring and discovering new interesting facts about Estoril!
                 </Text>
-                <TouchableOpacity style={styles.tryAgainButton} onPress={() => setStoryModalVisible(true)}>
+                <TouchableOpacity style={styles.readStoryButton} onPress={() => setStoryModalVisible(true)}>
                     <Text style={styles.tryAgainText}>Read the story</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.tryAgainButton} onPress={handleTryAgain}>
@@ -190,15 +200,30 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                     story={story}
                 />
             </View>
+            </View>
+        </ImageBackground>
         );
     }
 
     return (
+        <ImageBackground
+        source={require('../assets/background/home1.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
         <View style={styles.container}>
             <Text style={styles.topic}>Level {level}</Text>
-            <Text style={styles.topic}>{question}</Text>
-            <Text style={styles.topic}>{score}</Text>
+            <Text style={styles.task}>{question}</Text>
 
+            <View style={styles.scoreContainer}>
+                <View style={styles.scoreIcon}>
+                    <Icons type={'coin'}/>
+                </View>
+                <Text style={styles.scoreText}>{score}</Text>
+            </View>
+
+            <View style={styles.statsContainer}>
             <View style={styles.livesContainer}>
                 {[...Array(3)].map((_, index) => (
                     <View key={index} style={styles.lifeIcon}>
@@ -217,12 +242,19 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                 ))}
             </View>
 
+            </View>
+
             <View style={styles.contentContainer}>
                 {/* Left Column: Events */}
                 <View style={styles.eventsColumn}>
+                    <ScrollView  style={{width: '100%'}}>
                     {events.map((event, index) => (
-                        <Text key={index} style={styles.eventText}>{event}</Text>
+                        <View key={index} style={styles.eventOption}>
+                            <Text style={styles.eventText}>{event}</Text>
+                        </View>
                     ))}
+
+                    </ScrollView>
                 </View>
 
                 {/* Middle Column: Placeholders */}
@@ -252,7 +284,7 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                         <TouchableOpacity
                             key={index}
                             onPress={() => handleYearPress(year)}
-                            style={styles.yearOption}
+                            style={[styles.yearOption, selectedYear === year && {backgroundColor: '#6b603e'}]}
                         >
                             <Text style={styles.yearText}>{year}</Text>
                         </TouchableOpacity>
@@ -274,6 +306,8 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                 lives={lives}
             />
         </View>
+        </View>
+        </ImageBackground>
     );
 };
 
@@ -281,15 +315,42 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         paddingTop: 70,
-        flex: 1,
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
+    backgroundImage: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+      },
+    overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+      },
     topic: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
         marginBottom: 20,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'white'
+    },
+    task: {
+        fontSize: 21,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center',
+        color: 'white'
+    },
+    statsContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 30
     },
     contentContainer: {
         flexDirection: 'row',
@@ -306,37 +367,48 @@ const styles = StyleSheet.create({
     },
     yearsColumn: {
         flex: 1,
-        paddingLeft: 10,
+    },
+    eventOption: {
+        width: '100%',
+        backgroundColor: '#4bae94',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 5,
+        borderRadius: 5,
+        padding: 7
     },
     eventText: {
-        fontSize: 18,
+        fontSize: 16,
         marginBottom: 10,
+        color: 'white'
     },
     placeholder: {
         width: '100%',
         height: 60,
-        borderColor: 'blue',
+        borderColor: '#4bae94',
         borderWidth: 2,
+        borderRadius: 5,
         borderStyle: 'dashed',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        backgroundColor: '#f0f8ff',
+        backgroundColor: 'transparent',
     },
     placeholderCorrect: {
-        backgroundColor: 'green',
+        backgroundColor: '#a8efad',
     },
     placeholderIncorrect: {
-        backgroundColor: 'red',
+        backgroundColor: '#d15d44',
     },
     placeholderText: {
         fontSize: 16,
-        color: 'blue',
+        color: '#4bae94',
+        fontWeight: '500'
     },
     yearOption: {
         width: '100%',
         height: 50,
-        backgroundColor: 'yellow',
+        backgroundColor: '#cab562',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 5,
@@ -344,29 +416,70 @@ const styles = StyleSheet.create({
     },
     yearText: {
         fontSize: 16,
+        color: 'white'
     },
-    finalText: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        marginBottom: 20,
+    finishTitle: {
+        color: '#e2d6b1',
+        fontSize: 34,
+        fontWeight: '900',
+        marginTop: 20
+    },
+    finishScoreContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        marginVertical: 20
+    },
+    finishScore: {
+        color: '#a39361',
+        fontSize: 24,
+        fontWeight: '700'
+    },
+    finalScore: {
+        color: '#e2d6b1',
+        fontSize: 24,
+        fontWeight: '700',
+        marginBottom: 30
+    },
+    finishText: {
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 150,
         textAlign: 'center',
+        color: '#fff',
+    },
+    readStoryButton: {
+        backgroundColor: '#a39361',
+        width: '100%',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     tryAgainButton: {
-        backgroundColor: 'blue',
+        backgroundColor: '#4bae94',
+        width: '100%',
         padding: 15,
-        borderRadius: 5,
-        marginTop: 20,
+        borderRadius: 10,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     tryAgainText: {
         color: 'white',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '700',
     },
     goBackButton: {
         backgroundColor: 'gray',
+        width: '100%',
         padding: 15,
-        borderRadius: 5,
-        marginTop: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     goBackText: {
         color: 'white',
@@ -374,20 +487,35 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     storeIcon: {
-        width: 60,
-        height: 60,
-        alignSelf: 'center'
+        width: 50,
+        height: 50,
+        position: 'absolute',
+        top: 55,
+        right: 25
     },
     livesContainer: {
         flexDirection: 'row',
         marginBottom: 10,
-        width: '100%'
     },
     lifeIcon: {
         width: 30,
         height: 30,
         marginRight: 5
     },
+    scoreContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    scoreIcon: {
+        width: 45,
+        height: 45,
+        marginRight: 5
+    },
+    scoreText: {
+        fontSize: 22,
+        fontWeight: '600',
+        color: 'white'
+    }
 });
 
 export default QuizExpert;

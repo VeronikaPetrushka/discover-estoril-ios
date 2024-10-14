@@ -54,7 +54,12 @@ const LeadersBoard = () => {
                 <Icons type={'back'}/>
             </TouchableOpacity>
             <Text style={styles.header}>LeadersBoard</Text>
-            <Text style={styles.totalScore}>Your Total Score: {totalScore}</Text>
+            <View style={styles.scoreContainer}>
+                    <View style={styles.scoreIcon}>
+                        <Icons type={'coin'}/>
+                    </View>
+                    <Text style={styles.scoreText}>{totalScore}</Text>
+                </View>
             {
                 newcomerResultsVisible && 
                     <NewcomerResults onGoBack={() => setNewcomerResultsVisible(false)} /> 
@@ -116,11 +121,32 @@ const styles = StyleSheet.create({
         left: 20,
         zIndex: 10
     },
+    scoreContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        marginBottom: 40,
+        width: 200,
+        alignSelf: 'center'
+    },
+    scoreIcon: {
+        width: 45,
+        height: 45,
+        marginRight: 5
+    },
+    scoreText: {
+        color: '#a39361',
+        fontSize: 24,
+        fontWeight: '700'
+    },
     header: {
         fontSize: 34,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 15,
         color: '#e2d6b1'
     },
     totalScore: {
@@ -132,7 +158,7 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         width: '100%',
-        marginTop: 100,
+        marginTop: 80,
         marginBottom: 40,
         alignItems: 'center',
         justifyContent: 'center'

@@ -103,6 +103,10 @@ const Home = () => {
                 <Text style={styles.btnTxt}>About us</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity style={styles.btnFolders} onPress={() => navigation.navigate('FoldersScreen')}>
+                <Text style={styles.btnTxt}>Folders</Text>
+            </TouchableOpacity>
+
             <Animated.View style={[styles.accountBackground, { height: heightInterpolation }]}>
             <View style={[styles.accountBtn, expanded && styles.accountBtnExpanded]}>
             {expanded && (
@@ -179,6 +183,21 @@ const styles = StyleSheet.create({
         backgroundColor: ('rgba(39, 116, 241, 0.3)'),
         borderRadius: 12,
         marginBottom: 10,
+        zIndex: 10
+    },
+
+    btnFolders: {
+        padding: 12,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        borderWidth: 2,
+        borderColor: '#e4cd88',
+        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        borderRadius: 12,
+        marginBottom: 10,
+        marginTop: 30,
         zIndex: 10
     },
 

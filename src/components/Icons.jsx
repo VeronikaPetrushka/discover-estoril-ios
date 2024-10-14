@@ -15,6 +15,15 @@ const Icons = ({ type }) => {
       imageSource = require('../assets/common/go-back.png');
       iconStyle = styles.backIcon;
       break;
+    case 'folder':
+      imageSource = require('../assets/common/folder.png');
+      break;
+    case 'edit':
+      imageSource = require('../assets/common/edit.png');
+      break;
+    case 'delete':
+      imageSource = require('../assets/common/delete.png');
+      break;
     case 'padlock':
       imageSource = require('../assets/collection/padlock.png');
       break;
@@ -52,6 +61,9 @@ const Icons = ({ type }) => {
     case 'walking-2':
       imageSource = require('../assets/museum/walking-2.png');
       iconStyle = styles.backIcon;
+      break;
+    case 'map':
+      imageSource = require('../assets/museum/map.png');
       break;
     case 'life-gone':
       imageSource = require('../assets/quiz/life.png');
@@ -115,7 +127,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     objectFit: 'cover',
-    tintColor: 'grey',
+    tintColor: '#d6d1d0',
   }
 });
 

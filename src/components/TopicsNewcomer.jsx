@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TouchableOpacity, View, Text, StyleSheet, ImageBackground, ScrollView } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import newcomer from "../constants/newcomer.js"
+import Icons from './Icons.jsx';
 
 const TopicsNewcomer = () => {
     const navigation = useNavigation();
@@ -26,6 +27,9 @@ const TopicsNewcomer = () => {
       >
         <View style={styles.overlay}>
         <View style={styles.container}>
+        <TouchableOpacity  style={styles.iconBack} onPress={() => navigation.goBack()}>
+                <Icons type={'back'}/>
+            </TouchableOpacity>
         <Text style={styles.title}>Newcomer Topics:</Text>
             <ScrollView style={{width: '100%'}}>
             {
@@ -57,11 +61,20 @@ const styles = StyleSheet.create({
         width: '100%',
       },
     container: {
-        flex: 1,
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 20,
-        paddingTop: 70
+        paddingTop: 80
+    },
+    iconBack: {
+        width: 40,
+        height: 40,
+        position: 'absolute',
+        top: 40,
+        left: 20,
+        zIndex: 10
     },
     title: {
         fontWeight: 'bold',

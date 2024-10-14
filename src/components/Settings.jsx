@@ -77,6 +77,7 @@ const Settings = () => {
             await AsyncStorage.removeItem('newcomerResults');
             await AsyncStorage.removeItem('expertResults');
             await AsyncStorage.removeItem('savedStories');
+            await AsyncStorage.removeItem('UserFolders');
 
             setTotalBalance(0);
             setShowResetConfirmation(false);
@@ -105,7 +106,7 @@ const Settings = () => {
                     {showResetConfirmation ? (
                         <>
                             <Text style={styles.confirmationText}>
-                                Are you sure you want to reset your progress? It will reset your account, score, mode results, purchased hints and lives, and saved stories !
+                                Are you sure you want to reset your progress? It will reset your account, score, mode results, purchased hints and lives, saved stories, and folders along with uploaded images !
                             </Text>
                             <TouchableOpacity style={styles.resetBtn} onPress={handleReset}>
                                 <Text style={styles.btnText}>Reset</Text>

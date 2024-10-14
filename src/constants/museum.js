@@ -19,7 +19,10 @@ const museum = [
         reward: {
             description: 'You have successfully completed the tour of Palácio de Estoril! Your reward: a unique stamp featuring motifs of the city of Estoril. This collectible stamp is a symbol of your curiosity and passion for exploring the historical treasures of this beautiful city.',
             mark: require('../assets/collection/mark-1.png')
-        }
+        },
+        coordinates: [
+            { lat: 38.6997882, lng: -9.4170954 },
+        ]
     },
     {
         id: '2',
@@ -41,7 +44,10 @@ const museum = [
         reward: {
             description: 'You have successfully completed the tour of Fortaleza do Guincho! Your reward: a unique stamp featuring motifs of the city of Estoril. This collectible stamp is a symbol of your curiosity and passion for exploring the historical treasures of this beautiful city.',
             mark: require('../assets/collection/mark-2.png')
-        }
+        },
+        coordinates: [
+            {lat: 38.7302887, lng: -9.4693648}
+        ]
     },
     {
         id: '3',
@@ -63,7 +69,10 @@ const museum = [
         reward: {
             description: ' You have successfully completed the tour of Farol do Cabo Raso! Your reward: a unique stamp featuring motifs of the city of Estoril. This collectible stamp is a symbol of your curiosity and passion for exploring the historical treasures of this beautiful city.',
             mark: require('../assets/collection/mark-3.png')
-        }
+        },
+        coordinates: [
+            {lat: 38.6943268, lng: -9.4303237}
+        ]
     },
     {
         id: '4',
@@ -85,7 +94,10 @@ const museum = [
         reward: {
             description: 'You have successfully completed the tour of Igreja de São Bartolomeu! Your reward: a unique stamp featuring motifs of the city of Estoril. This collectible stamp is a symbol of your curiosity and passion for exploring the historical treasures of this beautiful city.',
             mark: require('../assets/collection/mark-4.png')
-        }
+        },
+        coordinates: [
+            {lat: 40.20808792114258, lng: -8.429549217224121}
+        ]
     },
     {
         id: '5',
@@ -107,7 +119,10 @@ const museum = [
         reward: {
             description: 'You have successfully completed the tour of Praia do Tamariz! Your reward: a unique stamp featuring motifs of the city of Estoril. This collectible stamp is a symbol of your curiosity and passion for exploring the natural and historical beauty of this stunning coastal destination.',
             mark: require('../assets/collection/mark-5.png')
-        }
+        },
+        coordinates: [
+            {lat: 38.702682, lng: -9.3993122}
+        ]
     }
 ];
 

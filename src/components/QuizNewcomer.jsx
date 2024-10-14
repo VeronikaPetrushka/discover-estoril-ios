@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import StoreModal from './QuizStoreModal';
@@ -25,22 +25,19 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
     const placeholderRef = useRef(null);
 
     useEffect(() => {
-        const loadTotalScore = async () => {
+        const loadScores = async () => {
             const storedScore = await AsyncStorage.getItem('totalScore');
             if (storedScore) {
                 setTotalScore(parseInt(storedScore, 10));
             }
-            const loadTotalHints = async () => {
-                const storedHints = await AsyncStorage.getItem('totalHints');
-                if (storedHints) {
-                    setTotalHints(parseInt(storedHints, 10));
-                    setAvailableHints(3);
-                }
-            };
-    
-            loadTotalScore();
-            loadTotalHints();
+            const storedHints = await AsyncStorage.getItem('totalHints');
+            if (storedHints) {
+                setTotalHints(parseInt(storedHints, 10));
+                setAvailableHints(3);
+            }
         };
+    
+        loadScores();
     }, []);
 
     const currentQuestion = questions[currentQuestionIndex];
@@ -73,9 +70,12 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
             } else {
                 setLives(lives - 1);
                 if (lives - 1 === 0) {
-                    finishQuiz(score);
+                    setTimeout(() => {
+                        finishQuiz(score);
+                    }, 1000);
                     return;
                 }
+                
                 setTimeout(() => {
                     setIsCorrect(null);
                     setSelectedOption(null);
@@ -142,7 +142,9 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
             console.error("Error storing quiz results:", error);
         }
     
-        setQuizFinished(true);
+        setTimeout(() => {
+            setQuizFinished(true);
+        }, 1000);
     };
     
 
@@ -161,16 +163,27 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
 
     if (quizFinished) {
         return (
+            <ImageBackground
+        source={require('../assets/background/home1.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
             <View style={styles.container}>
-                <Text style={styles.finalText}>Quiz Finished!</Text>
-                <Text style={styles.finalText}>{topic}</Text>
-                <Text style={styles.finalText}>Your Score: {score}/{questions.length}</Text>
-                <Text style={styles.finalText}>Total Score: {totalScore}</Text>
-                <Text>You have successfully completed the level {level} of the quiz!
+            <Text style={styles.finishTitle}>Quiz Finished!</Text>
+            <Text style={styles.topic}>{topic}</Text>
+                <View style={styles.finishScoreContainer}>
+                    <View style={styles.scoreIcon}>
+                        <Icons type={'coin'}/>
+                    </View>
+                    <Text style={styles.finishScore}>{totalScore}</Text>
+                </View>
+                <Text style={styles.finalScore}>Here is your final score: {score} !</Text>
+                <Text style={styles.finishText}>You have successfully completed the level {level} of the quiz!
                     Your knowledge of this charming area is just beginning to unfold!
                     Keep exploring and discovering new interesting facts about Estoril!
                 </Text>
-                <TouchableOpacity style={styles.tryAgainButton} onPress={() => setStoryModalVisible(true)}>
+                <TouchableOpacity style={styles.readStoryButton} onPress={() => setStoryModalVisible(true)}>
                     <Text style={styles.tryAgainText}>Read the story</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.tryAgainButton} onPress={handleTryAgain}>
@@ -187,16 +200,42 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                 story={story}
                 />
             </View>
+            </View>
+            </ImageBackground>
         );
     }
 
     return (
+        <ImageBackground
+        source={require('../assets/background/home1.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
+        <View style={styles.overlay}>
         <View style={styles.container}>
-            <Text style={styles.topic}>Level {level}</Text>
-            <Text style={styles.topic}>{topic}</Text>
-            <Text style={styles.question}>{currentQuestion.question}</Text>
-            <Text style={styles.score}>Score: {score}</Text>
+            <Text style={styles.level}>Level {level}</Text>
+            <View style={{
+                width: '100%',
+                padding: 10,
+                paddingVertical: 15,
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'white',
+                borderRadius: 10,
+                marginBottom: 20,
+            }}>
+                <Text style={styles.topic}>{topic}</Text>
+                <Text style={styles.question}>{currentQuestion.question}</Text>
+            </View>
 
+            <View style={styles.scoreContainer}>
+                <View style={styles.scoreIcon}>
+                    <Icons type={'coin'}/>
+                </View>
+                <Text style={styles.scoreText}>{score}</Text>
+            </View>
+
+            <View style={styles.statsContainer}>
             <View style={styles.livesContainer}>
                 {[...Array(3)].map((_, index) => (
                     <View key={index} style={styles.lifeIcon}>
@@ -213,6 +252,7 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                         <Icons type={'hint'} />
                     </View>
                 ))}
+            </View>
             </View>
 
             <TouchableOpacity
@@ -240,7 +280,7 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                             onPress={() => handleOptionPress(index)}
                             style={[
                                 styles.option,
-                                selectedOption === index ? { backgroundColor: 'lightblue' } : { backgroundColor: 'yellow' }
+                                selectedOption === index ? { backgroundColor: '#6b603e' } : { backgroundColor: '#cab562' }
                             ]}
                         >
                             <Text style={styles.optionText}>{option}</Text>
@@ -264,6 +304,8 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                 lives={lives}
                 />
         </View>
+        </View>
+        </ImageBackground>
     );
 };
 
@@ -271,30 +313,66 @@ const styles = StyleSheet.create({
     container: {
         padding: 20,
         paddingTop: 70,
-        flex: 1,
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'flex-start',
+    },
+    backgroundImage: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+      },
+    overlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+      },
+    level: {
+        fontSize: 26,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center',
+        color: 'white'
     },
     topic: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
-        textAlign: 'center'
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#6b603e'
     },
     question: {
-        fontSize: 18,
-        marginBottom: 20,
+        fontSize: 20,
+        fontWeight: '500',
+        textAlign: 'center',
+        color: '#6b603e',
         textAlign: 'center'
     },
-    score: {
-        fontSize: 18,
-        color: 'green',
-        marginBottom: 10,
+    statsContainer: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 30
+    },
+    scoreContainer: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    scoreIcon: {
+        width: 45,
+        height: 45,
+        marginRight: 5
+    },
+    scoreText: {
+        fontSize: 22,
+        fontWeight: '600',
+        color: 'white'
     },
     livesContainer: {
         flexDirection: 'row',
-        marginBottom: 10,
-        width: '100%'
     },
     lifeIcon: {
         width: 30,
@@ -302,30 +380,32 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     placeholder: {
-        width: '90%',
+        width: '85%',
         height: 60,
-        borderColor: 'blue',
+        borderColor: '#4bae94',
         borderWidth: 2,
+        borderRadius: 5,
         borderStyle: 'dashed',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
-        backgroundColor: '#f0f8ff',
+        marginBottom: 70,
+        backgroundColor: 'transparent',
     },
     placeholderCorrect: {
-        backgroundColor: 'green',
+        backgroundColor: '#a8efad',
     },
     placeholderIncorrect: {
-        backgroundColor: 'red',
+        backgroundColor: '#d15d44',
     },
     placeholderText: {
-        fontSize: 16,
-        color: 'blue',
+        fontSize: 18,
+        color: '#4bae94',
+        fontWeight: '600'
     },
     placedOptionText: {
-        fontSize: 16,
+        fontSize: 18,
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
     optionsContainer: {
         width: '100%',
@@ -333,39 +413,82 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     option: {
-        width: 260,
+        width: '85%',
         height: 50,
-        padding: 15,
-        marginVertical: 5,
-        borderRadius: 5,
+        backgroundColor: '#cab562',
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 5,
+        borderRadius: 5,
     },
     optionText: {
-        fontSize: 16,
+        fontSize: 18,
+        color: 'white',
+        fontWeight: '600'
     },
-    finalText: {
-        fontSize: 22,
-        fontWeight: 'bold',
+    finishTitle: {
+        color: '#e2d6b1',
+        fontSize: 34,
+        fontWeight: '900',
+        marginTop: 20,
         marginBottom: 20,
+    },
+    finishScoreContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        marginBottom: 20
+    },
+    finishScore: {
+        color: '#a39361',
+        fontSize: 24,
+        fontWeight: '700'
+    },
+    finalScore: {
+        color: '#e2d6b1',
+        fontSize: 24,
+        fontWeight: '700',
+        marginBottom: 30
+    },
+    finishText: {
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 100,
         textAlign: 'center',
+        color: '#fff',
+    },
+    readStoryButton: {
+        backgroundColor: '#a39361',
+        width: '100%',
+        padding: 15,
+        borderRadius: 10,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     tryAgainButton: {
-        backgroundColor: 'blue',
+        backgroundColor: '#4bae94',
+        width: '100%',
         padding: 15,
-        borderRadius: 5,
-        marginTop: 20,
+        borderRadius: 10,
+        marginBottom: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     tryAgainText: {
         color: 'white',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '700',
     },
     goBackButton: {
         backgroundColor: 'gray',
+        width: '100%',
         padding: 15,
-        borderRadius: 5,
-        marginTop: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     goBackText: {
         color: 'white',
@@ -373,10 +496,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     storeIcon: {
-        width: 60,
-        height: 60,
-        alignSelf: 'center'
-    }
+        width: 50,
+        height: 50,
+        position: 'absolute',
+        top: 55,
+        right: 25
+    },
 });
 
 export default QuizNewcomer;

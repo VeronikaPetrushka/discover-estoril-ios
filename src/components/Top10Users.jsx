@@ -54,17 +54,17 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
     },
     title: {
         fontSize: 28,
         fontWeight: 'bold',
         marginBottom: 20,
         color: '#e2d6b1',
+        marginTop: -10
     },
     listContainer: {
         paddingBottom: 20,
-        width: '100%',
+        width: '90%',
     },
     userContainer: {
         flexDirection: 'row',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         color: '#6b603e',
     },
     goBackButton: {
-        marginTop: 20
+        marginTop: 10
     },
     goBackButtonText: {
         fontSize: 18,

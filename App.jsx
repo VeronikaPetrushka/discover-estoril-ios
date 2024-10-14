@@ -5,8 +5,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './src/screens/HomeScreen.jsx';
 import SavedScreen from './src/screens/SavedScreen.jsx'
 import CollectionScreen from './src/screens/CollectionScreen.jsx';
+import FoldersScreen from './src/screens/FoldersScreen.jsx';
+import FolderDetailsScreen from './src/screens/FolderDetailsScreen.jsx';
 import SettingsScreen from './src/screens/SettingsScreen.jsx';
 import MuseumScreen from './src/screens/MuseumScreen.jsx';
+import MapScreen from './src/screens/MapScreen.jsx';
 import MuseumFactsScreen from './src/screens/MuseumFactsScreen.jsx'
 import LeadersBoardScreen from './src/screens/LeadersBoardScreen.jsx';
 import QuizModeScreen from './src/screens/QuizModeScreen.jsx';
@@ -47,6 +50,16 @@ const App = () => {
                             options={{ headerShown: false }} 
                         />
                         <Stack.Screen 
+                            name="FoldersScreen" 
+                            component={FoldersScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="FolderDetailsScreen" 
+                            component={FolderDetailsScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
                             name="SettingsScreen" 
                             component={SettingsScreen} 
                             options={{ headerShown: false }} 
@@ -54,6 +67,11 @@ const App = () => {
                         <Stack.Screen 
                             name="MuseumScreen" 
                             component={MuseumScreen} 
+                            options={{ headerShown: false }} 
+                        />
+                        <Stack.Screen 
+                            name="MapScreen" 
+                            component={MapScreen} 
                             options={{ headerShown: false }} 
                         />
                         <Stack.Screen 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { TouchableOpacity, View, Text, StyleSheet, ImageBackground, ScrollView } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import expert from "../constants/expert.js"
+import Icons from './Icons.jsx';
 
 const TopicsExpert = () => {
     const navigation = useNavigation();
@@ -28,6 +29,9 @@ const TopicsExpert = () => {
       >
         <View style={styles.overlay}>
         <View style={styles.container}>
+            <TouchableOpacity  style={styles.iconBack} onPress={() => navigation.goBack()}>
+                <Icons type={'back'}/>
+            </TouchableOpacity>
         <Text style={styles.title}>Expert Levels:</Text>
             <ScrollView style={{width: '100%'}}>
             {
@@ -59,11 +63,20 @@ const styles = StyleSheet.create({
         width: '100%',
       },
     container: {
-        flex: 1,
+        width: '100%',
+        height: '100%',
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 20,
         paddingTop: 70
+    },
+    iconBack: {
+        width: 40,
+        height: 40,
+        position: 'absolute',
+        top: 50,
+        left: 20,
+        zIndex: 10
     },
     title: {
         fontWeight: 'bold',
@@ -77,6 +90,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         alignItems: 'center',
         justifyContent: 'center',
+        alignSelf: 'center',
         width: 300,
         borderWidth: 2,
         borderColor: '#e4cd88',

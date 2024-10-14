@@ -213,7 +213,7 @@ const StoreModal = ({ visible, onClose, onUseHint, onUse100Hint, hintUsed, avail
                     </View>
 
                     <View style={{width: '100%', marginBottom: 15, alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={styles.regulatorTxt}>50%</Text>
+                        <Text style={styles.percentageText}>50%</Text>
                     </View>
 
                     <View style={styles.hintContainer}>
@@ -253,7 +253,7 @@ const StoreModal = ({ visible, onClose, onUseHint, onUse100Hint, hintUsed, avail
                     </View>
 
                     <View style={{width: '100%', marginBottom: 15, alignItems: 'center', justifyContent: 'center'}}>
-                        <Text style={styles.regulatorTxt}>100%</Text>
+                        <Text style={styles.percentageText}>100%</Text>
                     </View>
 
                     <View style={styles.hintContainer}>
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderRadius: 15,
-        backgroundColor: '#503c00',
+        backgroundColor: '#6b603e',
         marginBottom: 30,
     },
     statsMiniText: {
@@ -438,12 +438,19 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 10
     },
+    percentageText: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#6b603e',
+        marginHorizontal: 2,
+        textAlign: 'center'
+    },
     regulatorTxt: {
         fontSize: 22,
         fontWeight: 'bold',
-        color: '#503c00',
+        color: '#6b603e',
         marginHorizontal: 2,
-        // width: width * 0.1,
+        width: width * 0.1,
         textAlign: 'center'
     },
     btnContainer: {

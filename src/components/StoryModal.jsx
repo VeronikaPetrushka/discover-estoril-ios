@@ -62,7 +62,7 @@ const StoryModal = ({ visible, onClose, storyName, story }) => {
         >
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
-                <ScrollView style={styles.ScrollView}>
+                <ScrollView contentContainerStyle={styles.ScrollView}>
                     <Text style={styles.title}>{storyName}</Text>
                     <Text style={styles.text}>{story}</Text>
                     <TouchableOpacity style={styles.shareButton} onPress={handleShare}>
@@ -98,11 +98,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    ScrollView: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
     text: {
         fontSize: 19,
         marginBottom: 10,
         textAlign: 'center',
-        color: '#6b603e'
+        color: '#6b603e',
     },
     title: {
         fontWeight: 'bold',
@@ -113,12 +118,12 @@ const styles = StyleSheet.create({
     },
     shareButton: {
         padding: 10,
-        width: '100%',
+        width: 290,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 10,
         backgroundColor: '#6b603e',
-        marginTop: 10
+        marginTop: 10,
     },
     btnText: {
         fontSize: 18,

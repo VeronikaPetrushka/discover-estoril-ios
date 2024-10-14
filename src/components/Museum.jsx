@@ -33,6 +33,9 @@ const Museum = () => {
             <TouchableOpacity style={styles.iconBack} onPress={() => navigation.navigate('HomeScreen')}>
                 <Icons type={'back'}/>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.iconMap} onPress={() => navigation.navigate('MapScreen')}>
+                <Icons type={'map'}/>
+            </TouchableOpacity>
             <Text style={styles.title}>Museum</Text>
             <View style={styles.imageList}>
             <ScrollView style={{width: '100%'}}>
@@ -109,6 +112,14 @@ const styles = StyleSheet.create({
         left: 20,
         zIndex: 10
     },
+    iconMap: {
+        width: 40,
+        height: 40,
+        position: 'absolute',
+        top: 50,
+        right: 20,
+        zIndex: 10
+    },
     textContainer: {
         width: '100%',
         padding: 12,
@@ -121,7 +132,6 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         zIndex: 10
     },
-
     text: {
         fontSize: 20,
         color: '#e4cd88',
