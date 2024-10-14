@@ -2,35 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+import NewcomerResults from './NewcomerResults';
+import ExpertResults from './ExpertResults';
+import Top10Users from './Top10Users';
 import Icons from './Icons';
 
 const LeadersBoard = () => {
     const navigation = useNavigation();
-    const [randomUsers, setRandomUsers] = useState([]);
     const [totalScore, setTotalScore] = useState(0);
-
-    const generateRandomUsers = () => {
-        const firstNames = ['Ethan', 'Isabella', 'Alexander', 'Mia', 'Benjamin', 'Chloe', 'Elijah'];
-        const lastNames = ['Anderson', 'Martinez', 'Taylor', 'White', 'Moore', 'Thomas', 'Jackson'];
-            
-        const users = [];
-        for (let i = 1; i <= 7; i++) {
-            const randomScore = Math.floor(Math.random() * 9001) + 1000;
-            const correctAnswers = Math.floor(Math.random() * 100) + 1;
-    
-            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    
-            users.push({
-                id: i.toString(),
-                username: `${firstName} ${lastName}`,
-                score: randomScore,
-                correctAnswers,
-            });
-        }
-        setRandomUsers(users);
-    };
-    
+    const [newcomerResultsVisible, setNewcomerResultsVisible] = useState(false);
+    const [expertResultsVisible, setExpertResultsVisible] = useState(false);
+    const [top10Visible, setTop10Visible] = useState(false);
 
     const loadTotalScore = async () => {
         try {
@@ -44,18 +26,21 @@ const LeadersBoard = () => {
     };
 
     useEffect(() => {
-        generateRandomUsers();
         loadTotalScore();
     }, []);
 
-    const renderItem = ({ item }) => (
-        <View style={styles.userRow}>
-            <Text style={styles.username}>{item.username}</Text>
-            <View style={{width: '100%', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row'}}>
-            <Text style={styles.score}>Score: {item.score}</Text>
-            </View>
-        </View>
-    );
+    const handleNewcomerResultsVisible = () => {
+        setNewcomerResultsVisible(!newcomerResultsVisible);
+    };
+
+    const handleExpertResultsVisible = () => {
+        setExpertResultsVisible(!expertResultsVisible);
+    }
+
+    const handleTop10Visible = () => {
+        setTop10Visible(!top10Visible);
+    }
+
 
     return (
         <ImageBackground
@@ -70,11 +55,33 @@ const LeadersBoard = () => {
             </TouchableOpacity>
             <Text style={styles.header}>LeadersBoard</Text>
             <Text style={styles.totalScore}>Your Total Score: {totalScore}</Text>
-            <FlatList
-                data={randomUsers}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-            />
+            {
+                newcomerResultsVisible && 
+                    <NewcomerResults onGoBack={() => setNewcomerResultsVisible(false)} /> 
+                    || 
+                expertResultsVisible && 
+                <ExpertResults onGoBack={() => setExpertResultsVisible(false)}/> 
+                ||
+                top10Visible &&
+                <Top10Users onGoBack={() => setTop10Visible(false)}/>
+                ||
+                <View style={{width: '100%'}}>
+                    <View style={styles.progressContainer}>
+                <Text style={styles.progressText}>My progress</Text>
+                <View style={styles.progressBtnContainer}>
+                    <TouchableOpacity style={styles.progressBtn} onPress={() => handleNewcomerResultsVisible()}>
+                        <Text style={styles.progressBtnText}>Newcomer</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.progressBtn} onPress={() => handleExpertResultsVisible()}>
+                        <Text style={styles.progressBtnText}>Expert</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <TouchableOpacity style={styles.top10Btn} onPress={() => handleTop10Visible()}>
+                <Text style={styles.progressBtnText}>Top 10</Text>
+            </TouchableOpacity>
+                </View>
+            }
         </View>
         </View>
         </ImageBackground>
@@ -95,8 +102,9 @@ const styles = StyleSheet.create({
         width: '100%',
       },
     container: {
-        flex: 1,
-        padding: 20,
+        width: '100%',
+        height: '100%',
+        padding: 10,
         paddingTop: 70,
         paddingBottom: 140,
     },
@@ -122,32 +130,56 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         color: '#e2d6b1'
     },
-    userRow: {
-        width: 330,
-        justifyContent: 'space-around',
+    progressContainer: {
+        width: '100%',
+        marginTop: 100,
+        marginBottom: 40,
         alignItems: 'center',
-        padding: 15,
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        marginVertical: 5,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
+        justifyContent: 'center'
     },
-    username: {
-        fontSize: 18,
-        fontWeight: '500',
-        color: '#6b603e',
-        marginBottom: 12
+    progressText: {
+        fontSize: 28,
+        fontWeight: '700',
+        color: '#e2d6b1',
+        textAlign: 'center',
+        marginBottom: 30
     },
-    score: {
-        fontSize: 17,
-        color: '#6b603e'
+    progressBtnContainer: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
     },
-    correctAnswers: {
-        fontSize: 17,
-        color: '#6b603e'
+    progressBtn: {
+        width: '49%',
+        padding: 12,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#e4cd88',
+        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        borderRadius: 12,
+        marginBottom: 10,
+        zIndex: 10
+    },
+    top10Btn: {
+        width: '100%',
+        padding: 12,
+        paddingHorizontal: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 2,
+        borderColor: '#e4cd88',
+        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        borderRadius: 12,
+        marginBottom: 10,
+        zIndex: 10
+    },
+    progressBtnText: {
+        fontSize: 20,
+        color: '#e4cd88',
+        fontWeight: '600'
     },
 });
 

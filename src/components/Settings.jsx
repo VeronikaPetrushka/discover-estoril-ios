@@ -71,6 +71,12 @@ const Settings = () => {
             await AsyncStorage.setItem('userProfile', '');
 
             await AsyncStorage.removeItem('totalScore');
+            await AsyncStorage.removeItem('totalHints');
+            await AsyncStorage.removeItem('total100Hints');
+            await AsyncStorage.removeItem('totalLives');
+            await AsyncStorage.removeItem('newcomerResults');
+            await AsyncStorage.removeItem('expertResults');
+            await AsyncStorage.removeItem('savedStories');
 
             setTotalBalance(0);
             setShowResetConfirmation(false);
@@ -99,7 +105,7 @@ const Settings = () => {
                     {showResetConfirmation ? (
                         <>
                             <Text style={styles.confirmationText}>
-                                Are you sure you want to reset your progress? It will reset your account !
+                                Are you sure you want to reset your progress? It will reset your account, score, mode results, purchased hints and lives, and saved stories !
                             </Text>
                             <TouchableOpacity style={styles.resetBtn} onPress={handleReset}>
                                 <Text style={styles.btnText}>Reset</Text>

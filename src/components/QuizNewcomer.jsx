@@ -163,6 +163,7 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
         return (
             <View style={styles.container}>
                 <Text style={styles.finalText}>Quiz Finished!</Text>
+                <Text style={styles.finalText}>{topic}</Text>
                 <Text style={styles.finalText}>Your Score: {score}/{questions.length}</Text>
                 <Text style={styles.finalText}>Total Score: {totalScore}</Text>
                 <Text>You have successfully completed the level {level} of the quiz!
