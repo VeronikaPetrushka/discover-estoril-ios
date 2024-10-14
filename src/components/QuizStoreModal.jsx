@@ -1,4 +1,3 @@
-// 100% case hint to add
 import React, {useState, useEffect} from 'react';
 import { Modal, View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7,12 +6,14 @@ import Icons from './Icons';
 const { height } = Dimensions.get('window');
 const { width } = Dimensions.get('window');
 
-const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onUseLife, lives }) => {
+const StoreModal = ({ visible, onClose, onUseHint, onUse100Hint, hintUsed, availableHints, onUseLife, lives }) => {
     const [totalScore, setTotalScore] = useState(0);
     const [totalLives, setTotalLives] = useState(0);
     const [totalHints, setTotalHints] = useState(0);
+    const [total100Hints, setTotal100Hints] = useState(0);
 
     const [hintRegulator, setHintRegulator] = useState(0);
+    const [hint100Regulator, setHint100Regulator] = useState(0);
     const [livesRegulator, setLivesRegulator] = useState(0);
 
     useEffect(() => {
@@ -20,6 +21,7 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
             const storedScore = await AsyncStorage.getItem('totalScore');
             const storedLives = await AsyncStorage.getItem('totalLives');
             const storedHints = await AsyncStorage.getItem('totalHints');
+            const stored100Hints = await AsyncStorage.getItem('total100Hints');
 
             if (storedScore) {
                 setTotalScore(parseInt(storedScore, 10));
@@ -29,6 +31,9 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
             }
             if (storedHints) {
                 setTotalHints(parseInt(storedHints, 10));
+            }
+            if (stored100Hints) {
+                setTotal100Hints(parseInt(stored100Hints, 10));
             }
         };
 
@@ -49,6 +54,18 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
 
     const hintPrice = hintRegulator * 5;
 
+    const increase100Hints = () => {
+        setHint100Regulator(prev => prev + 1);
+    };
+
+    const decrease100Hints = () => {
+        if (hint100Regulator > 0) {
+            setHint100Regulator(prev => prev - 1);
+        }
+    };
+
+    const hint100Price = hint100Regulator * 6;
+
     const increaseLives = () => {
         setLivesRegulator(prev => prev + 1);
     };
@@ -62,12 +79,30 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
     const livesPrice = livesRegulator * 5;
 
     const buyHints = async () => {
+        if (totalScore < hintPrice) {
+            alert("Insufficient balance, you have not enough in-app coins to buy a hint :(");
+            return;
+        }
         if (totalScore >= hintPrice) {
             setTotalHints(prev => prev + hintRegulator);
             setTotalScore(prev => prev - hintPrice);
             setHintRegulator(0);
             await AsyncStorage.setItem('totalHints', (totalHints + hintRegulator).toString());
             await AsyncStorage.setItem('totalScore', (totalScore - hintPrice).toString());
+        }
+    };
+
+    const buy100Hints = async () => {
+        if (totalScore < hint100Price) {
+            alert("Insufficient balance, you have not enough in-app coins to buy a hint :(");
+            return;
+        }
+        if (totalScore >= hint100Price) {
+            setTotal100Hints(prev => prev + hint100Regulator);
+            setTotalScore(prev => prev - hint100Price);
+            setHint100Regulator(0);
+            await AsyncStorage.setItem('total100Hints', (total100Hints + hint100Regulator).toString());
+            await AsyncStorage.setItem('totalScore', (totalScore - hint100Price).toString());
         }
     };
 
@@ -95,6 +130,24 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
         if (totalHints > 0) {
             await AsyncStorage.setItem('totalHints', (totalHints - 1).toString());
             onUseHint();
+            onClose();
+        }
+    };
+
+    const handleUse100Hint = async () => {
+        if (hintUsed) {
+            alert("You have already used a hint for this question.");
+            return;
+        }
+
+        if (availableHints === 0) {
+            alert("You have already used 3 hints for this quiz.");
+            return;
+        }
+
+        if (total100Hints > 0) {
+            await AsyncStorage.setItem('total100Hints', (total100Hints - 1).toString());
+            onUse100Hint();
             onClose();
         }
     };
@@ -131,7 +184,14 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
                     <View style={styles.statsContainer}>
 
                     <View style={styles.scoreContainer}>
-                        <Text style={styles.statsText}>{totalHints}</Text>
+                        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', position: 'absolute',
+                            top: -5, left: -5
+                        }}>
+                            <Text style={styles.statsMiniText}>50%</Text>
+                            <Text style={styles.statsMiniText}> | </Text>
+                            <Text style={styles.statsMiniText}>100%</Text>
+                        </View>
+                        <Text style={styles.statsText}>{totalHints} | {total100Hints}</Text>
                         <View style={styles.hintStatsIcon}>
                                 <Icons type={'hint'}/>
                         </View>
@@ -151,6 +211,10 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
                         </View>
                     </View>
 
+                    </View>
+
+                    <View style={{width: '100%', marginBottom: 15, alignItems: 'center', justifyContent: 'center'}}>
+                        <Text style={styles.regulatorTxt}>50%</Text>
                     </View>
 
                     <View style={styles.hintContainer}>
@@ -184,6 +248,49 @@ const StoreModal = ({ visible, onClose, onUseHint, hintUsed, availableHints, onU
                         style={[styles.buyBtn, totalHints <= 0 && styles.disabledButton]} 
                         onPress={handleUseHint}
                         disable={totalHints <= 0}
+                        >
+                        <Text style={styles.buyBtnTxt}>Use</Text>
+                    </TouchableOpacity>
+                    </View>
+
+                    <View style={{width: '100%', marginBottom: 15, alignItems: 'center', justifyContent: 'center'}}>
+                        <Text style={styles.regulatorTxt}>100%</Text>
+                    </View>
+
+                    <View style={styles.hintContainer}>
+                        <View style={styles.hintIcon}>
+                            <Icons type={'hint'}/>
+                        </View>
+                        <Text style={styles.regulatorTxt}>{hint100Price}</Text>
+                        <View style={styles.regulatorContainer}>
+                            <TouchableOpacity 
+                                style={[styles.regulatorIcon, hint100Regulator <= 0 && styles.disabledButton]} 
+                                onPress={decrease100Hints}
+                                disabled={hint100Regulator <= 0}
+                                >
+                                <Icons type={'minus'}/>
+                            </TouchableOpacity>
+                            <Text style={styles.regulatorTxt}>{hint100Regulator}</Text>
+                            <TouchableOpacity 
+                                style={[styles.regulatorIcon]} 
+                                onPress={increase100Hints}
+                                >
+                                <Icons type={'plus'}/>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+
+                    <View style={styles.btnContainer}>
+                    <TouchableOpacity 
+                        style={[styles.buyBtn, totalScore < hint100Price || hint100Regulator <= 0 && styles.disabledButton]} 
+                        onPress={buy100Hints}
+                        >
+                        <Text style={styles.buyBtnTxt}>Buy</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        style={[styles.buyBtn, total100Hints <= 0 && styles.disabledButton]} 
+                        onPress={handleUse100Hint}
+                        disable={total100Hints <= 0}
                         >
                         <Text style={styles.buyBtnTxt}>Use</Text>
                     </TouchableOpacity>
@@ -280,7 +387,11 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderRadius: 15,
         backgroundColor: '#503c00',
-        marginBottom: 60,
+        marginBottom: 30,
+    },
+    statsMiniText: {
+        fontSize: 10,
+        color: 'white'
     },
     scoreContainer: {
         flexDirection: 'row',
@@ -310,7 +421,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        marginBottom: 30,
+        marginBottom: 25,
         width: width * 0.79
     },
     hintIcon: {
@@ -333,11 +444,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#503c00',
         marginHorizontal: 2,
-        width: width * 0.1,
+        // width: width * 0.1,
         textAlign: 'center'
     },
     btnContainer: {
-        marginBottom: 50,
+        marginBottom: 40,
         alignItems: 'center',
         justifyContent: 'space-around',
         flexDirection: 'row',

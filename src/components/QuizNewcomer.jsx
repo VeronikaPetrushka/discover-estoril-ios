@@ -104,6 +104,18 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
         }
     };
 
+    const handleUse100Hint = () => {
+        if (!hintUsed && availableHints > 0) {
+            const currentQuestion = questions[currentQuestionIndex];
+            const correctAnswer = currentQuestion.correctAnswer;
+    
+            const optionsToHide = currentQuestion.options.filter(option => option !== correctAnswer);
+            setIncorrectOptions(optionsToHide);
+            setHintUsed(true);
+            setAvailableHints(availableHints - 1);
+        }
+    };
+    
     const handleUseLife = () => {
         if(lives <= 3){
             setLives(prevLives => prevLives + 1);
@@ -113,9 +125,26 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
     const finishQuiz = async (finalScore) => {
         const updatedTotalScore = totalScore + finalScore;
         setTotalScore(updatedTotalScore);
+    
         await AsyncStorage.setItem('totalScore', updatedTotalScore.toString());
+    
+        try {
+            const storedResults = await AsyncStorage.getItem('newcomerResults');
+            const results = storedResults ? JSON.parse(storedResults) : [];
+    
+            const newResult = { level, score: finalScore };
+            const updatedResults = [...results, newResult];
+    
+            await AsyncStorage.setItem('newcomerResults', JSON.stringify(updatedResults));
+    
+            console.log("Updated newcomer results:", updatedResults);
+        } catch (error) {
+            console.error("Error storing quiz results:", error);
+        }
+    
         setQuizFinished(true);
     };
+    
 
     const handleTryAgain = () => {
         setScore(0);
@@ -227,6 +256,7 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                 visible={storeModalVisible} 
                 onClose={handleStoreModalClose} 
                 onUseHint={handleUseHint} 
+                onUse100Hint={handleUse100Hint}
                 hintUsed={hintUsed}
                 availableHints={availableHints}
                 onUseLife={handleUseLife}
