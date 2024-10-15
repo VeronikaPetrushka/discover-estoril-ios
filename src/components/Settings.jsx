@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Share, Alert, Vibration, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Share, Alert, Vibration, ImageBackground, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useMusic } from '../constants/context/music.js';
+
+const { height } = Dimensions.get('window');
 
 const Settings = () => {
     const { isPlaying, togglePlay } = useMusic();
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         padding: 20,
-        paddingTop: 70,
+        paddingTop: height * 0.08,
         alignItems: 'center',
         justifyContent: 'flex-start',
     },
@@ -181,7 +183,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 34,
         textAlign: 'center',
-        marginBottom: 110,
+        marginBottom: height * 0.11,
         color: '#e2d6b1',
     },
     regulatorContainer: {
@@ -231,14 +233,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ccc',
         alignSelf: 'flex-start',
     },
-    closeButton: {
-        padding: 10,
-        width: 40,
-        height: 40,
-        position: 'absolute',
-        top: 10,
-        right: 10,
-    },
     shareBtn: {
         width: '100%',
         backgroundColor: '#b9a76f',
@@ -247,7 +241,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 15,
-        marginTop: 150,
+        marginTop: height * 0.15,
     },
     btnText: {
         fontSize: 19,
@@ -266,8 +260,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
         textAlign: 'center',
-        marginBottom: 100,
-        marginTop: 150,
+        marginBottom: height * 0.1,
+        marginTop: height * 0.15,
         color: '#e2d6b1'
     },
     cancelReset: {

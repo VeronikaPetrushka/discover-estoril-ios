@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, Image, FlatList, StyleSheet, Alert, View } from 'react-native';
+import { Text, TouchableOpacity, Image, FlatList, StyleSheet, Alert, View, Dimensions } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import Icons from './Icons';
+
+const { height, width } = Dimensions.get('window');
 
 const FolderDetail = ({ folder }) => {
     const navigation = useNavigation();
@@ -128,7 +130,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
-        marginTop: 70,
+        marginTop: height * 0.08,
         color: 'white',
     },
     goBackButton: {
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
         height: 60,
         padding: 10,
         position: 'absolute',
-        top: 50,
+        top: height * 0.055,
         left: 20,
     },
     addButton: {
@@ -148,15 +150,15 @@ const styles = StyleSheet.create({
         height: 60,
         position: 'absolute',
         right: 20,
-        top: 50,
+        top: height * 0.055,
     },
     imageList: {
         width: '100%',
-        marginBottom: 50,
+        marginBottom: height * 0.05,
     },
     imageWrapper: {
         width: '46%',
-        height: 180,
+        height: height * 0.2,
         margin: 7,
     },
     image: {

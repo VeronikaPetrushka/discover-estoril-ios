@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+
+const { height } = Dimensions.get('window');
 
 const randomNames = [
     'Alice', 'Bob', 'Charlie', 'Daisy', 'Eve', 'Frank', 'Grace', 'Hank', 'Ivy', 'Jack'
@@ -52,18 +54,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: '100%',
+        paddingBottom: height * 0.08,
         justifyContent: 'center',
         alignItems: 'center',
     },
     title: {
         fontSize: 28,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: height * 0.02,
         color: '#e2d6b1',
-        marginTop: -10
+        marginTop: height * -0.01
     },
     listContainer: {
-        paddingBottom: 20,
+        paddingBottom: height * 0.03,
         width: '90%',
     },
     userContainer: {
@@ -72,8 +75,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#ffffff',
         borderRadius: 10,
-        padding: 15,
-        marginVertical: 5,
+        padding: height * 0.019,
+        marginVertical: 4,
         width: '100%',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
         color: '#6b603e',
     },
     goBackButton: {
-        marginTop: 10
+        marginTop: height * 0.01
     },
     goBackButtonText: {
         fontSize: 18,

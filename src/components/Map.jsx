@@ -1,9 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useNavigation } from '@react-navigation/native';
 import museum from '../constants/museum';
 import Icons from './Icons';
+
+const { height } = Dimensions.get('window');
 
 const Map = () => {
     const navigation = useNavigation();
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         position: 'absolute',
-        top: 50,
+        top: height * 0.06,
         left: 20,
         zIndex: 10
     },

@@ -1,10 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import StoreModal from './QuizStoreModal';
 import StoryModal from './StoryModal';
 import Icons from './Icons';
+
+const { height } = Dimensions.get('window');
 
 const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
     const navigation = useNavigation();
@@ -171,7 +173,7 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
         <View style={styles.overlay}>
             <View style={styles.container}>
             <Text style={styles.finishTitle}>Quiz Finished!</Text>
-            <Text style={styles.topic}>{topic}</Text>
+            <Text style={styles.finishTopic}>{topic}</Text>
                 <View style={styles.finishScoreContainer}>
                     <View style={styles.scoreIcon}>
                         <Icons type={'coin'}/>
@@ -312,7 +314,7 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        paddingTop: 70,
+        paddingTop: height * 0.08,
         width: '100%',
         height: '100%',
         alignItems: 'center',
@@ -343,6 +345,13 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         textAlign: 'center',
         color: '#6b603e'
+    },
+    finishTopic: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#fff'
     },
     question: {
         fontSize: 20,
@@ -388,7 +397,7 @@ const styles = StyleSheet.create({
         borderStyle: 'dashed',
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 70,
+        marginBottom: height * 0.08,
         backgroundColor: 'transparent',
     },
     placeholderCorrect: {
@@ -414,7 +423,7 @@ const styles = StyleSheet.create({
     },
     option: {
         width: '85%',
-        height: 50,
+        height: height * 0.06,
         backgroundColor: '#cab562',
         justifyContent: 'center',
         alignItems: 'center',
@@ -430,8 +439,8 @@ const styles = StyleSheet.create({
         color: '#e2d6b1',
         fontSize: 34,
         fontWeight: '900',
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: height * 0.03,
+        marginBottom: height * 0.03,
     },
     finishScoreContainer: {
         flexDirection: 'row',
@@ -439,7 +448,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 15,
         borderRadius: 10,
-        marginBottom: 20
+        marginBottom: height * 0.03
     },
     finishScore: {
         color: '#a39361',
@@ -450,12 +459,12 @@ const styles = StyleSheet.create({
         color: '#e2d6b1',
         fontSize: 24,
         fontWeight: '700',
-        marginBottom: 30
+        marginBottom: height * 0.035
     },
     finishText: {
-        fontSize: 20,
+        fontSize: height * 0.026,
         fontWeight: '600',
-        marginBottom: 100,
+        marginBottom: height * 0.09,
         textAlign: 'center',
         color: '#fff',
     },
@@ -499,7 +508,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         position: 'absolute',
-        top: 55,
+        top: height * 0.055,
         right: 25
     },
 });

@@ -13,35 +13,36 @@ const StoryModal = ({ visible, onClose, storyName, story }) => {
                 const savedStories = await AsyncStorage.getItem('savedStories');
                 if (savedStories) {
                     const savedList = JSON.parse(savedStories);
-                    setSaved(savedList.includes(storyName));
+                    const isSaved = savedList.some(story => story.storyName === storyName);
+                    setSaved(isSaved);
                 }
             } catch (error) {
                 console.error("Error checking saved status:", error);
             }
         };
-
+    
         if (visible) {
             checkSavedStatus();
         }
-    }, [visible]);
-
+    }, [visible, storyName]);
+    
     const handleSave = async () => {
         try {
             const savedStories = await AsyncStorage.getItem('savedStories');
             let savedList = savedStories ? JSON.parse(savedStories) : [];
-
+    
             if (saved) {
-                savedList = savedList.filter(item => item !== storyName);
+                savedList = savedList.filter(item => item.storyName !== storyName);
             } else {
-                savedList.push({storyName, story});
+                savedList.push({ storyName, story });
             }
-
+    
             await AsyncStorage.setItem('savedStories', JSON.stringify(savedList));
             setSaved(!saved);
         } catch (error) {
             console.error("Error updating saved stories:", error);
         }
-    };
+    };    
 
     const handleShare = async () => {
         try {
@@ -90,7 +91,6 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         width: '90%',
-        height: '65%',
         padding: 20,
         paddingTop: 50,
         backgroundColor: 'white',

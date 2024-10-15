@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ExpertStore from './ExpertStore';
 import StoryModal from './StoryModal';
 import Icons from './Icons';
 import { shuffle } from '../constants/expert';
+
+const { height } = Dimensions.get('window');
 
 const QuizExpert = ({ level, question, events, years, answers, storyName, story }) => {
     const navigation = useNavigation();
@@ -247,13 +249,12 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
             <View style={styles.contentContainer}>
                 {/* Left Column: Events */}
                 <View style={styles.eventsColumn}>
-                    <ScrollView  style={{width: '100%'}}>
+                    <ScrollView>
                     {events.map((event, index) => (
                         <View key={index} style={styles.eventOption}>
                             <Text style={styles.eventText}>{event}</Text>
                         </View>
                     ))}
-
                     </ScrollView>
                 </View>
 
@@ -314,7 +315,7 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        paddingTop: 70,
+        paddingTop: height * 0.08,
         width: '100%',
         height: '100%',
         alignItems: 'center',
@@ -356,6 +357,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: '100%',
         justifyContent: 'space-between',
+        height: '64%'
     },
     eventsColumn: {
         flex: 1,
@@ -422,7 +424,7 @@ const styles = StyleSheet.create({
         color: '#e2d6b1',
         fontSize: 34,
         fontWeight: '900',
-        marginTop: 20
+        marginTop: height * 0.03
     },
     finishScoreContainer: {
         flexDirection: 'row',
@@ -430,7 +432,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingHorizontal: 15,
         borderRadius: 10,
-        marginVertical: 20
+        marginVertical: height * 0.03
     },
     finishScore: {
         color: '#a39361',
@@ -441,12 +443,12 @@ const styles = StyleSheet.create({
         color: '#e2d6b1',
         fontSize: 24,
         fontWeight: '700',
-        marginBottom: 30
+        marginBottom: height * 0.035
     },
     finishText: {
-        fontSize: 20,
+        fontSize: height * 0.026,
         fontWeight: '600',
-        marginBottom: 150,
+        marginBottom: height * 0.12,
         textAlign: 'center',
         color: '#fff',
     },
@@ -490,7 +492,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         position: 'absolute',
-        top: 55,
+        top: height * 0.06,
         right: 25
     },
     livesContainer: {

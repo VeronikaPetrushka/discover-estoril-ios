@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Modal, FlatList, StyleSheet, Alert, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Modal, FlatList, StyleSheet, Alert, ImageBackground, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import Icons from './Icons';
+
+const { height, width } = Dimensions.get('window');
 
 const Folders = () => {
     const navigation = useNavigation();
@@ -169,7 +171,7 @@ const Folders = () => {
 const styles = StyleSheet.create({
     container: {
         padding: 20,
-        paddingTop: 60,
+        paddingTop: height * 0.08,
         width: '100%',
         height: '100%'
     },
@@ -194,19 +196,19 @@ const styles = StyleSheet.create({
         height: 60,
         position: 'absolute',
         right: 20,
-        top: 50,
+        top: height * 0.055,
         zIndex: 10
     },
     title: {
         fontSize: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom: 30,
+        marginBottom: height * 0.03,
         color: 'white'
     },
     folderList: {
         marginTop: 20,
-        marginBottom: 100
+        marginBottom: height * 0.015
     },
     folder: {
         backgroundColor: '#fff',
@@ -247,7 +249,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 20,
         borderRadius: 10,
-        width: 300,
+        width: width * 0.8,
         alignItems: 'center',
     },
     modalTitle: {
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
         height: 60,
         padding: 10,
         position: 'absolute',
-        top: 50,
+        top: height * 0.055,
         left: 20,
         zIndex: 10
     },

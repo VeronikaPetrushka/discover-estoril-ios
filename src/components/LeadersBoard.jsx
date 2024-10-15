@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import NewcomerResults from './NewcomerResults';
 import ExpertResults from './ExpertResults';
 import Top10Users from './Top10Users';
 import Icons from './Icons';
+
+const { height } = Dimensions.get('window');
 
 const LeadersBoard = () => {
     const navigation = useNavigation();
@@ -110,14 +112,14 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         padding: 10,
-        paddingTop: 70,
-        paddingBottom: 140,
+        paddingTop: height * 0.08,
+        paddingBottom: height * 0.12,
     },
     backIcon: {
         width: 40,
         height: 40,
         position: 'absolute',
-        top: 50,
+        top: height * 0.055,
         left: 20,
         zIndex: 10
     },
@@ -158,8 +160,8 @@ const styles = StyleSheet.create({
     },
     progressContainer: {
         width: '100%',
-        marginTop: 80,
-        marginBottom: 40,
+        marginTop: height * 0.08,
+        marginBottom: height * 0.04,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -168,7 +170,7 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         color: '#e2d6b1',
         textAlign: 'center',
-        marginBottom: 30
+        marginBottom: height * 0.03
     },
     progressBtnContainer: {
         width: '100%',

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Svg, G, Text as SvgText, Path } from 'react-native-svg';
+
+const { height, width } = Dimensions.get('window');
 
 const NewcomerResults = ({onGoBack}) => {
     const [maxScores, setMaxScores] = useState(Array(10).fill(0));
@@ -28,9 +30,9 @@ const NewcomerResults = ({onGoBack}) => {
         fetchResults();
     }, []);
 
-    const radius = 145;
-    const centerX = 180;
-    const centerY = 170;
+    const radius = height * 0.17;
+    const centerX = width * 0.47;
+    const centerY = height * 0.215;
 
     const generateValidColor = () => {
         let color;
@@ -43,7 +45,7 @@ const NewcomerResults = ({onGoBack}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Newcomer Results</Text>
-            <Svg width={360} height={340}>
+            <Svg width={width * 0.94} height={height * 0.41}>
                 <G rotation={-90} origin={`${centerX}, ${centerY}`}>
                     {Array.from({ length: 10 }).map((_, index) => {
                         const startAngle = (index * 36) * (Math.PI / 180);
@@ -82,7 +84,7 @@ const NewcomerResults = ({onGoBack}) => {
                                     x={centerX + (radius + 20) * Math.cos((startAngle + endAngle) / 2)}
                                     y={centerY + (radius + 20) * Math.sin((startAngle + endAngle) / 2)}
                                     fill="#fff"
-                                    fontSize="19"
+                                    fontSize={height * 0.025}
                                     fontWeight='600'
                                     textAnchor="middle"
                                     transform={`rotate(90 ${centerX + (radius + 20) * Math.cos((startAngle + endAngle) / 2)}, ${centerY + (radius + 20) * Math.sin((startAngle + endAngle) / 2)})`}
@@ -110,13 +112,13 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 28,
-        marginBottom: 30,
-        marginTop: -40,
+        marginBottom: height * 0.02,
+        marginTop: height * -0.07,
         color: '#e2d6b1',
         fontWeight: '700'
     },
     goBackButton: {
-        marginTop: 30
+        marginTop: height * 0.02
     },
     goBackButtonText: {
         fontSize: 18,

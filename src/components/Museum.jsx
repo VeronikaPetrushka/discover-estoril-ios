@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, View, ScrollView, Text, TouchableOpacity, ImageBackground } from 'react-native';
+import { Image, StyleSheet, View, ScrollView, Text, TouchableOpacity, ImageBackground, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import museum from '../constants/museum.js';
 import Icons from './Icons';
+
+const { height } = Dimensions.get('window');
 
 const Museum = () => {
     const navigation = useNavigation();
@@ -79,14 +81,14 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         padding: 20,
-        paddingTop: 70,
+        paddingTop: height * 0.08,
         alignItems: 'center'
     },
     title: {
         fontSize: 34,
         fontWeight: 'bold',
         color: '#e2d6b1',
-        marginBottom: 30
+        marginBottom: height * 0.03
     },
     imageList: {
         width: '100%',
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
     },
     imgContainer: {
         width: '100%',
-        height: 180,
+        height: height * 0.23,
         marginBottom: 10,
         borderRadius: 2,
         overflow: 'hidden',
@@ -108,7 +110,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         position: 'absolute',
-        top: 50,
+        top: height * 0.05,
         left: 20,
         zIndex: 10
     },
@@ -116,7 +118,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         position: 'absolute',
-        top: 50,
+        top: height * 0.05,
         right: 20,
         zIndex: 10
     },
@@ -129,7 +131,7 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: ('rgba(39, 116, 241, 0.3)'),
         borderRadius: 12,
-        marginBottom: 30,
+        marginBottom: height * 0.03,
         zIndex: 10
     },
     text: {
