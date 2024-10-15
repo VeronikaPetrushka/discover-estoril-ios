@@ -3,6 +3,7 @@ import { Text, View, TouchableOpacity, StyleSheet, ImageBackground, Animated, Te
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useNavigation } from '@react-navigation/native';
+import WelcomeModal from './WelcomeModal';
 import AboutModal from './AboutModal';
 import Icons from './Icons';
 
@@ -11,6 +12,7 @@ const { height } = Dimensions.get('window');
 const Home = () => {
     const navigation = useNavigation();
     const [aboutModalVisible, setAboutModalVisible] = useState(false);
+    const [welcomeModalVisible, setWelcomeModalVisible] = useState(true);
     const [expanded, setExpanded] = useState(false);
     const [animation] = useState(new Animated.Value(0));
     const [selectedImage, setSelectedImage] = useState(null); 
@@ -35,6 +37,10 @@ const Home = () => {
 
     const handleAboutModalClose = () => {
         setAboutModalVisible(false);
+    }
+
+    const handleWelcomeModalClose = () => {
+        setWelcomeModalVisible(false);
     }
 
     const handleAccountButtonPress = () => {
@@ -140,6 +146,7 @@ const Home = () => {
             </View>
             </Animated.View>
 
+            <WelcomeModal visible={welcomeModalVisible} onClose={handleWelcomeModalClose}/>
             <AboutModal visible={aboutModalVisible} onClose={handleAboutModalClose}/>
 
         </View>
