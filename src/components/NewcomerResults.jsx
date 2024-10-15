@@ -32,6 +32,14 @@ const NewcomerResults = ({onGoBack}) => {
     const centerX = 180;
     const centerY = 170;
 
+    const generateValidColor = () => {
+        let color;
+        do {
+            color = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+        } while (!/^#[0-9A-F]{6}$/i.test(color));
+        return color;
+    };  
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Newcomer Results</Text>
@@ -55,7 +63,7 @@ const NewcomerResults = ({onGoBack}) => {
                             <G key={index}>
                                 <Path
                                     d={`M${centerX},${centerY} L${startX},${startY} A${radius},${radius} 0 ${largeArcFlag} 1 ${endX},${endY} Z`}
-                                    fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                                    fill={generateValidColor()}
                                     stroke="#fff"
                                     strokeWidth="1"
                                 />

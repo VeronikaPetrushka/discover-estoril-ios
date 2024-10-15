@@ -32,6 +32,14 @@ const ExpertResults = ({onGoBack}) => {
     const centerX = 180;
     const centerY = 170;
 
+    const generateValidColor = () => {
+        let color;
+        do {
+            color = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+        } while (!/^#[0-9A-F]{6}$/i.test(color));
+        return color;
+    };    
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Expert Results</Text>
@@ -55,7 +63,7 @@ const ExpertResults = ({onGoBack}) => {
                             <G key={index}>
                                 <Path
                                     d={`M${centerX},${centerY} L${startX},${startY} A${radius},${radius} 0 ${largeArcFlag} 1 ${endX},${endY} Z`}
-                                    fill={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+                                    fill={generateValidColor()}
                                     stroke="#fff"
                                     strokeWidth="1"
                                 />
@@ -73,7 +81,7 @@ const ExpertResults = ({onGoBack}) => {
                                 <SvgText
                                     x={centerX + (radius + 20) * Math.cos((startAngle + endAngle) / 2)}
                                     y={centerY + (radius + 20) * Math.sin((startAngle + endAngle) / 2)}
-                                    fill="#e2d6b1"
+                                    fill="#fff"
                                     fontSize="19"
                                     fontWeight='600'
                                     textAnchor="middle"
