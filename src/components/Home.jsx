@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
         backgroundColor: ('rgba(39, 116, 241, 0.3)'),
         borderRadius: 12,
         marginBottom: 10,
-        marginTop: 30,
+        marginTop: height * 0.03,
         zIndex: 10
     },
 
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     expandedContainer: {
         width: '100%',
         padding: 15,
-        paddingVertical: 40,
+        paddingVertical: height * 0.04,
         alignItems: 'center',
         justifyContent: 'flex-start',
         position: 'relative',
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
         color: '#e4cd88',
         borderRadius: 8,
         padding: 10,
-        marginBottom: 50,
+        marginBottom: height * 0.05,
     },
 
     submitButton: {
@@ -283,11 +283,11 @@ const styles = StyleSheet.create({
     },
 
     imagePlaceholder: {
-        width: 160,
-        height: 160,
+        width: height * 0.18,
+        height: height * 0.18,
         backgroundColor: '#e4cd88',
         borderRadius: 100,
-        marginBottom: 25,
+        marginBottom: height * 0.025,
         justifyContent: 'center',
         alignItems: 'center',
     },
