@@ -166,11 +166,10 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
     if (quizFinished) {
         return (
             <ImageBackground
-        source={require('../assets/background/home1.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
             <View style={styles.container}>
             <Text style={styles.finishTitle}>Quiz Finished!</Text>
             <Text style={styles.finishTopic}>{topic}</Text>
@@ -202,18 +201,16 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                 story={story}
                 />
             </View>
-            </View>
             </ImageBackground>
         );
     }
 
     return (
         <ImageBackground
-        source={require('../assets/background/home1.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
             <Text style={styles.level}>Level {level}</Text>
             <View style={{
@@ -306,7 +303,6 @@ const QuizNewcomer = ({ topic, level, questions, storyName, story }) => {
                 lives={lives}
                 />
         </View>
-        </View>
         </ImageBackground>
     );
 };
@@ -324,13 +320,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
     level: {
         fontSize: 26,
@@ -391,7 +380,7 @@ const styles = StyleSheet.create({
     placeholder: {
         width: '85%',
         height: 60,
-        borderColor: '#4bae94',
+        borderColor: '#f9a500',
         borderWidth: 2,
         borderRadius: 5,
         borderStyle: 'dashed',
@@ -401,14 +390,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     placeholderCorrect: {
-        backgroundColor: '#a8efad',
+        backgroundColor: '#4a8c2e',
     },
     placeholderIncorrect: {
-        backgroundColor: '#d15d44',
+        backgroundColor: '#d60000',
     },
     placeholderText: {
         fontSize: 18,
-        color: '#4bae94',
+        color: '#f9a500',
         fontWeight: '600'
     },
     placedOptionText: {
@@ -424,7 +413,6 @@ const styles = StyleSheet.create({
     option: {
         width: '85%',
         height: height * 0.06,
-        backgroundColor: '#cab562',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 5,
@@ -478,7 +466,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     tryAgainButton: {
-        backgroundColor: '#4bae94',
+        backgroundColor: '#bf9000',
         width: '100%',
         padding: 15,
         borderRadius: 10,

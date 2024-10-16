@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, TouchableOpacity, Image, FlatList, StyleSheet, Alert, View, Dimensions } from 'react-native';
+import { Text, TouchableOpacity, Image, FlatList, StyleSheet, Alert, View, Dimensions, ImageBackground } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
@@ -93,6 +93,11 @@ const FolderDetail = ({ folder }) => {
     );
 
     return (
+        <ImageBackground
+        source={require('../assets/background/home2.png')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      >
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={styles.goBackButton}>
                 <Icons type={'back'} />
@@ -114,24 +119,29 @@ const FolderDetail = ({ folder }) => {
                 <Text style={styles.noImagesText}>No images in this folder.</Text>
             )}
         </View>
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         padding: 10,
-        backgroundColor: '#8d7d65',
         height: '100%',
         width: '100%',
         alignItems: 'center',
     },
+    backgroundImage: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+      },
     title: {
         fontSize: 26,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 20,
         marginTop: height * 0.08,
-        color: 'white',
+        color: '#e2d6b1',
     },
     goBackButton: {
         width: 60,

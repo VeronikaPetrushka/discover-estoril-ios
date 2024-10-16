@@ -63,11 +63,10 @@ const MuseumFacts = ({ museum, description, famous, factName, fact, facts, image
 
     return (
         <ImageBackground
-        source={require('../assets/background/home.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
             <Text style={styles.title}>{museum}</Text>
             <View style={styles.page}>
@@ -156,7 +155,6 @@ const MuseumFacts = ({ museum, description, famous, factName, fact, facts, image
                         </TouchableOpacity>
             </View>
         </View>
-        </View>
         </ImageBackground>
     );
 };
@@ -166,13 +164,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
     container: {
         flex: 1,

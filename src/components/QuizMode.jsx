@@ -1,17 +1,18 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, ImageBackground } from "react-native";
+import { Text, View, TouchableOpacity, StyleSheet, ImageBackground, Dimensions } from "react-native";
 import { useNavigation } from '@react-navigation/native';
+
+const { height } = Dimensions.get('window');
 
 const QuizMode = () => {
     const navigation = useNavigation();
 
     return (
         <ImageBackground
-        source={require('../assets/background/home.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
 
             <Text style={styles.title}>Choose you quiz mode:</Text>
@@ -25,7 +26,6 @@ const QuizMode = () => {
             </TouchableOpacity>
 
         </View>
-        </View>
         </ImageBackground>
     )
 };
@@ -38,21 +38,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 20,
-        paddingTop: 70
+        paddingTop: height * 0.2
     },
 
     backgroundImage: {
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
 
     title: {
@@ -70,8 +62,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         borderWidth: 2,
-        borderColor: '#e4cd88',
-        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        borderColor: '#f9a500',
+        backgroundColor: ('rgba(249, 229, 179, 0.3)'),
         borderRadius: 12,
         marginBottom: 10,
         zIndex: 10
@@ -79,7 +71,7 @@ const styles = StyleSheet.create({
 
     btnTxt: {
         fontSize: 20,
-        color: '#e4cd88',
+        color: '#f9a500',
         fontWeight: '600'
     },
 });

@@ -90,11 +90,10 @@ const Home = () => {
 
     return (
         <ImageBackground
-        source={require('../assets/background/home.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
 
             <TouchableOpacity style={styles.btn} onPress={() => navigation.navigate('SavedScreen')}>
@@ -129,7 +128,7 @@ const Home = () => {
                             <TextInput
                                 style={styles.input}
                                 placeholder="Enter your name"
-                                placeholderTextColor="#e4cd88"
+                                placeholderTextColor="#f9a500"
                                 value={name}
                                 onChangeText={setName}
                             />
@@ -149,7 +148,6 @@ const Home = () => {
             <WelcomeModal visible={welcomeModalVisible} onClose={handleWelcomeModalClose}/>
             <AboutModal visible={aboutModalVisible} onClose={handleAboutModalClose}/>
 
-        </View>
         </View>
         </ImageBackground>
     )
@@ -171,14 +169,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
       },
 
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-      },
-
     btn: {
         padding: 12,
         paddingHorizontal: 20,
@@ -186,8 +176,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         borderWidth: 2,
-        borderColor: '#e4cd88',
-        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        borderColor: '#f9a500',
+        backgroundColor: ('rgba(249, 229, 179, 0.3)'),
         borderRadius: 12,
         marginBottom: 10,
         zIndex: 10
@@ -200,8 +190,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         borderWidth: 2,
-        borderColor: '#e4cd88',
-        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        borderColor: '#f9a500',
+        backgroundColor: ('rgba(249, 229, 179, 0.3)'),
         borderRadius: 12,
         marginBottom: 10,
         marginTop: height * 0.03,
@@ -210,7 +200,7 @@ const styles = StyleSheet.create({
 
     btnTxt: {
         fontSize: 20,
-        color: '#e4cd88',
+        color: '#f9a500',
         fontWeight: '600'
     },
 
@@ -226,7 +216,7 @@ const styles = StyleSheet.create({
     },
 
     accountBtnExpanded: {
-        backgroundColor: ('rgba(39, 116, 241, 0.95)')
+        backgroundColor: ('rgba(249, 229, 179, 0.95)')
     },
 
     accountIcon: {
@@ -241,7 +231,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        backgroundColor: ('rgba(249, 229, 179, 0.3)'),
         borderRadius: 12,
         marginBottom: 10,
         zIndex: 11,
@@ -262,15 +252,15 @@ const styles = StyleSheet.create({
     input: {
         width: '100%',
         borderWidth: 1,
-        borderColor: '#e4cd88',
-        color: '#e4cd88',
+        borderColor: '#f9a500',
+        color: '#f9a500',
         borderRadius: 8,
         padding: 10,
         marginBottom: height * 0.05,
     },
 
     submitButton: {
-        backgroundColor: '#e4cd88',
+        backgroundColor: '#f9a500',
         padding: 10,
         borderRadius: 8,
         alignItems: 'center',
@@ -278,14 +268,15 @@ const styles = StyleSheet.create({
     },
 
     submitText: {
-        color: ('rgb(39, 116, 241)'),
+        color: ('rgb(249, 229, 179)'),
         fontWeight: '600',
     },
 
     imagePlaceholder: {
         width: height * 0.18,
         height: height * 0.18,
-        backgroundColor: '#e4cd88',
+        borderColor: '#f9a500',
+        borderWidth: 2,
         borderRadius: 100,
         marginBottom: height * 0.025,
         justifyContent: 'center',
@@ -293,7 +284,7 @@ const styles = StyleSheet.create({
     },
 
     uploadButton: {
-        backgroundColor: '#e4cd88',
+        backgroundColor: '#f9a500',
         padding: 10,
         borderRadius: 8,
         alignItems: 'center',
@@ -302,7 +293,7 @@ const styles = StyleSheet.create({
     },
 
     uploadText: {
-        color: 'rgb(39, 116, 241)',
+        color: 'rgb(249, 229, 179)',
         fontWeight: '600',
     },
 });

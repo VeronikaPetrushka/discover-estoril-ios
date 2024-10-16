@@ -115,11 +115,10 @@ const Folders = () => {
 
     return (
         <ImageBackground
-        source={require('../assets/background/home.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
             <TouchableOpacity style={styles.goBackIcon} onPress={handleGoBack}>
                 <Icons type={'back'} />
@@ -163,7 +162,6 @@ const Folders = () => {
                 </View>
             </Modal>
         </View>
-        </View>
         </ImageBackground>
     );
 };
@@ -179,13 +177,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-      overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
     addButton: {
         padding: 10,
@@ -204,7 +195,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: height * 0.03,
-        color: 'white'
+        color: '#e2d6b1'
     },
     folderList: {
         marginTop: 20,
@@ -271,7 +262,7 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     modalButton: {
-        backgroundColor: '#8d7d65',
+        backgroundColor: '#f9a500',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',

@@ -26,11 +26,10 @@ const Museum = () => {
 
     return (
         <ImageBackground
-        source={require('../assets/background/home.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
             <TouchableOpacity style={styles.iconBack} onPress={() => navigation.navigate('HomeScreen')}>
                 <Icons type={'back'}/>
@@ -59,7 +58,6 @@ const Museum = () => {
 
             </View>
         </View>
-        </View>
         </ImageBackground>
     )
 };
@@ -69,13 +67,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
     container: {
         width: '100%',
@@ -129,14 +120,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        backgroundColor: ('rgba(39, 116, 241, 0.3)'),
+        backgroundColor: ('rgba(249, 229, 179, 0.3)'),
         borderRadius: 12,
         marginBottom: height * 0.03,
         zIndex: 10
     },
     text: {
         fontSize: 20,
-        color: '#e4cd88',
+        color: '#f9a500',
         fontWeight: '600'
     }
 });

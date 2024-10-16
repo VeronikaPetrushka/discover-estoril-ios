@@ -56,11 +56,11 @@ const Icons = ({ type }) => {
       break;
     case 'walking-1':
       imageSource = require('../assets/museum/walking-1.png');
-      iconStyle = styles.backIcon;
+      iconStyle = styles.manIcon;
       break;
     case 'walking-2':
       imageSource = require('../assets/museum/walking-2.png');
-      iconStyle = styles.backIcon;
+      iconStyle = styles.manIcon;
       break;
     case 'map':
       imageSource = require('../assets/museum/map.png');
@@ -118,6 +118,12 @@ const styles = StyleSheet.create({
     tintColor: '#8b7e56',
   },
   backIcon: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover',
+    tintColor: '#f9a500',
+  },
+  manIcon: {
     width: '100%',
     height: '100%',
     objectFit: 'cover',

@@ -167,11 +167,10 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
     if (quizFinished) {
         return (
             <ImageBackground
-        source={require('../assets/background/home1.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
             <View style={styles.container}>
                 <Text style={styles.finishTitle}>Quiz Finished!</Text>
                 <View style={styles.finishScoreContainer}>
@@ -202,18 +201,16 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                     story={story}
                 />
             </View>
-            </View>
         </ImageBackground>
         );
     }
 
     return (
         <ImageBackground
-        source={require('../assets/background/home1.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
         <View style={styles.container}>
             <Text style={styles.topic}>Level {level}</Text>
             <Text style={styles.task}>{question}</Text>
@@ -307,7 +304,6 @@ const QuizExpert = ({ level, question, events, years, answers, storyName, story 
                 lives={lives}
             />
         </View>
-        </View>
         </ImageBackground>
     );
 };
@@ -325,13 +321,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
     topic: {
         fontSize: 26,
@@ -387,7 +376,7 @@ const styles = StyleSheet.create({
     placeholder: {
         width: '100%',
         height: 60,
-        borderColor: '#4bae94',
+        borderColor: '#f9a500',
         borderWidth: 2,
         borderRadius: 5,
         borderStyle: 'dashed',
@@ -397,14 +386,14 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
     placeholderCorrect: {
-        backgroundColor: '#a8efad',
+        backgroundColor: '#4a8c2e',
     },
     placeholderIncorrect: {
-        backgroundColor: '#d15d44',
+        backgroundColor: '#d60000',
     },
     placeholderText: {
         fontSize: 16,
-        color: '#4bae94',
+        color: '#f9a500',
         fontWeight: '500'
     },
     yearOption: {
@@ -462,7 +451,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     tryAgainButton: {
-        backgroundColor: '#4bae94',
+        backgroundColor: '#bf9000',
         width: '100%',
         padding: 15,
         borderRadius: 10,

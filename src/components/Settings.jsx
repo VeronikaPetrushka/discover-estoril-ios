@@ -99,11 +99,10 @@ const Settings = () => {
 
     return (
         <ImageBackground
-        source={require('../assets/background/home.jpg')}
+        source={require('../assets/background/home2.png')}
         style={styles.backgroundImage}
         resizeMode="cover"
       >
-        <View style={styles.overlay}>
                 <View style={styles.container}>
                     {showResetConfirmation ? (
                         <>
@@ -151,7 +150,6 @@ const Settings = () => {
                         </>
                     )}
                 </View>
-                </View>
                 </ImageBackground>
     );
 };
@@ -163,13 +161,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-      },
-    overlay: {
-        flex: 1,
-        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
       },
     container: {
         width: '100%',
@@ -197,7 +188,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         textAlign: 'center',
         fontWeight: 'bold',
-        color: '#e2d6b1'
+        color: '#f9a500'
     },
     toggleContainer: {
         padding: 7,
@@ -206,7 +197,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderWidth: 1,
         borderRadius: 30,
-        borderColor: '#e2d6b1',
+        borderColor: '#f9a500',
     },
     toggleContainerOff: {
         borderColor: '#ccc',
@@ -226,7 +217,7 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     toggleOn: {
-        backgroundColor: '#e2d6b1',
+        backgroundColor: '#f9a500',
         alignSelf: 'flex-end',
     },
     toggleOff: {
